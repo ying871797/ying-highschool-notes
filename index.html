@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高中知识库 · 首页</title>
+<style>
+  :root{
+    --ink:#1f2933;
+    --sub:#5b6675;
+    --line:#e2e8f0;
+    --blue:#2f6fed;
+    --blue-soft:#eaf1ff;
+    --green:#0f9d58;
+    --green-soft:#e8f7ef;
+    --purple:#7a52cc;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#eef1f6;
+    color:var(--ink);
+    font-family:"Noto Sans SC","Microsoft YaHei","PingFang SC","Hiragino Sans GB",system-ui,sans-serif;
+    line-height:1.75;
+    font-size:16px;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:26px 18px 70px;}
+
+  /* 顶部标题（与笔记页同风格的渐变 hero） */
+  header.hero{
+    background:linear-gradient(135deg,#2f6fed 0%,#5b8def 55%,#7a52cc 100%);
+    color:#fff;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 10px 26px rgba(47,111,237,.28);
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute;right:-40px;top:-40px;width:180px;height:180px;
+    background:rgba(255,255,255,.12);border-radius:50%;
+  }
+  header.hero h1{margin:0 0 6px;font-size:26px;letter-spacing:1px;}
+  header.hero p{margin:0;opacity:.92;font-size:14px;}
+
+  /* 笔记卡片网格 */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+    gap:16px;
+    margin-top:22px;
+  }
+  a.note{
+    display:block;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:18px 20px;
+    text-decoration:none;
+    color:inherit;
+    box-shadow:0 3px 10px rgba(31,41,51,.06);
+    transition:transform .15s ease, box-shadow .15s ease;
+    border-top:4px solid var(--blue);
+  }
+  a.note:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(47,111,237,.16);}
+  a.note.green{border-top-color:var(--green);}
+  a.note.purple{border-top-color:var(--purple);}
+  a.note h2{margin:0 0 6px;font-size:18px;color:var(--blue);}
+  a.note.green h2{color:var(--green);}
+  a.note.purple h2{color:var(--purple);}
+  a.note p{margin:0;font-size:14px;color:var(--sub);}
+  a.note .tag{
+    display:inline-block;margin-top:10px;font-size:12.5px;
+    background:var(--blue-soft);color:var(--blue);
+    border-radius:99px;padding:1px 10px;
+  }
+  a.note.green .tag{background:var(--green-soft);color:var(--green);}
+  a.note.purple .tag{background:#f1ecff;color:var(--purple);}
+
+  footer{margin-top:34px;color:var(--sub);font-size:13px;text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <h1>高中知识库</h1>
+    <p>个人笔记 · 远程阅读入口 · 新增笔记须登记到本页</p>
+  </header>
+
+  <!-- 笔记索引：新增笔记时在此添加一张卡片 -->
+  <div class="grid">
+    <a class="note green" href="./化学工艺流程笔记.html">
+      <h2>化学工艺流程笔记</h2>
+      <p>化工工艺流程专题：原料预处理、反应条件控制、分离提纯与尾气处理的答题框架。</p>
+      <span class="tag">化学</span>
+    </a>
+    <a class="note purple" href="./思辨性训练笔记-系统版.html">
+      <h2>议论文思辨性训练 · 系统版</h2>
+      <p>思辨性写作系统笔记：概念辨析、论证结构、常见逻辑谬误与评分量规。</p>
+      <span class="tag">语文</span>
+    </a>
+    <a class="note" href="./高中生物知识点·2026版·人教版.html">
+      <h2>高中生物全册知识点 · 2026版</h2>
+      <p>人教版生物全册知识点梳理：必修到选择性必修的系统化记忆清单。</p>
+      <span class="tag">生物</span>
+    </a>
+  </div>
+
+  <footer>纯静态页面 · 内容与源码一致 · 由 GitHub Pages 托管</footer>
+
+</div>
+</body>
+</html>

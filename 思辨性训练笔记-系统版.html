@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>议论文思辨性训练 · 系统版</title>
+<style>
+/* ═══════════════ 设计基调：学术手册 / 期刊特辑 ═══════════════
+   纸感米白 + 墨黑 + 单一朱红强调色，衬线标题压数字编号，
+   四组功能色只用于导航分组，正文靠留白与规则线分层级。        */
+:root{
+  --paper:#f6f3ec; --card:#fffdf8; --card2:#faf7f0;
+  --ink:#1a1815; --ink2:#574f45; --ink3:#8b8376;
+  --rule:#ded6c6; --rule2:#ebe4d6;
+
+  --accent:#9a2f22;            /* 朱红：唯一的强调色 */
+
+  --g1:#5c5449;                /* 起步 */
+  --g2:#1f4b70;                /* 方法 */
+  --g3:#2b6a4f;                /* 资源 */
+  --g4:#8a5210;                /* 训练 */
+
+  --fs:"Source Han Sans SC","Noto Sans SC","Microsoft YaHei","PingFang SC",sans-serif;
+  --ft:"Source Han Serif SC","Noto Serif SC","Songti SC","SimSun",Georgia,serif;
+  --fm:"Cascadia Mono","Consolas","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--fs);font-size:15px;line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ── 报头 ── */
+.masthead{
+  background:var(--card);border-bottom:3px double var(--ink);
+  padding:40px 0 26px;
+}
+.masthead .kicker{
+  font-family:var(--fm);font-size:11px;letter-spacing:.28em;
+  color:var(--accent);text-transform:uppercase;margin-bottom:14px;
+}
+.masthead h1{
+  font-family:var(--ft);font-size:40px;line-height:1.2;margin:0 0 12px;
+  font-weight:700;letter-spacing:3px;
+}
+.masthead .deck{
+  font-family:var(--ft);font-size:16px;color:var(--ink2);
+  max-width:760px;margin:0 0 20px;line-height:1.85;
+}
+.masthead .dateline{
+  border-top:1px solid var(--rule2);padding-top:14px;
+  display:flex;flex-wrap:wrap;gap:6px 26px;font-size:12.5px;color:var(--ink3);
+  font-family:var(--fm);
+}
+
+/* ── 导航：四组 ── */
+nav{position:sticky;top:0;z-index:80;background:rgba(255,253,248,.97);backdrop-filter:blur(6px);border-bottom:1px solid var(--rule)}
+nav .inner{max-width:1180px;margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;align-items:stretch}
+nav .grp{display:flex;align-items:center}
+nav .glabel{
+  font-family:var(--fm);font-size:10.5px;letter-spacing:.2em;color:var(--ink3);
+  padding:0 11px 0 4px;align-self:center;white-space:nowrap;
+}
+nav .glabel:first-child{padding-left:0}
+nav button{
+  border:0;background:none;cursor:pointer;font-family:var(--fs);
+  font-size:13.5px;color:var(--ink2);padding:12px 12px;
+  border-bottom:3px solid transparent;transition:.15s;white-space:nowrap;
+  display:flex;align-items:baseline;gap:5px;
+}
+nav button .n{font-family:var(--fm);font-size:10.5px;color:var(--ink3)}
+nav button:hover{background:var(--card2)}
+nav button.on{font-weight:700}
+nav button.on .n{color:inherit}
+nav .sep{width:1px;background:var(--rule2);margin:10px 12px}
+
+/* ── 页 ── */
+.page{display:none;padding:34px 0 20px;animation:in .3s ease}
+.page.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ── 章节标题：编号 + 衬线 ── */
+.shead{margin:44px 0 0;display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--rule);padding-bottom:9px}
+.shead:first-of-type{margin-top:6px}
+.shead .idx{font-family:var(--fm);font-size:13px;color:var(--accent);letter-spacing:.06em;padding-top:4px}
+.shead h2{font-family:var(--ft);font-size:22px;margin:0;font-weight:700;letter-spacing:2px}
+.shead .sub{font-size:12.5px;color:var(--ink3);margin-left:auto;font-family:var(--fm)}
+h3{font-family:var(--ft);font-size:16.5px;margin:28px 0 10px;font-weight:700;letter-spacing:1px;padding-left:10px;border-left:3px solid var(--accent)}
+h4{font-family:var(--ft);font-size:15px;margin:0 0 8px;font-weight:700}
+
+/* ── 本节关键动作条 ── */
+.act{
+  display:flex;gap:14px;align-items:flex-start;
+  background:var(--ink);color:#f3efe6;padding:15px 19px;border-radius:3px;margin:20px 0 8px;
+}
+.act .lab{
+  font-family:var(--fm);font-size:10.5px;letter-spacing:.18em;
+  border:1px solid rgba(255,255,255,.4);padding:2px 8px;border-radius:2px;
+  white-space:nowrap;margin-top:2px;
+}
+.act .txt{font-size:14.5px;line-height:1.7}
+.act .txt b{color:#f0b8a8;font-weight:700}
+
+/* ── 卡片 ── */
+.card{background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:17px 19px;margin:11px 0}
+.card.p{background:var(--card2)}
+.card h4 .num{font-family:var(--fm);font-size:11px;color:var(--accent);margin-right:8px;letter-spacing:.1em}
+.card ul{margin:8px 0 0;padding-left:20px}
+.card li{margin:3px 0}
+.accent{border-left:3px solid var(--accent)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:860px){.grid2,.grid3{grid-template-columns:1fr}}
+
+/* ── 流程图 ── */
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:7px;margin:15px 0}
+.flow .step{
+  flex:1 1 110px;min-width:96px;background:var(--card);
+  border:1px solid var(--rule);border-top:2.5px solid var(--g2);
+  border-radius:2px;padding:10px 8px;text-align:center;
+}
+.flow .step .n{display:block;font-family:var(--fm);font-size:10.5px;color:var(--g2);margin-bottom:3px;letter-spacing:.06em}
+.flow .step .t{font-family:var(--ft);font-size:14px;font-weight:700;display:block}
+.flow .step .d{font-size:11.5px;color:var(--ink2);margin-top:3px;line-height:1.55;display:block}
+.flow .arw{display:flex;align-items:center;color:var(--ink3);font-size:16px}
+.flow .hot{border-top-color:var(--accent);background:#fdf7f5}
+.flow .hot .n{color:var(--accent)}
+@media(max-width:760px){
+  .flow{flex-direction:column;align-items:stretch}
+  .flow .arw{justify-content:center;transform:rotate(90deg);height:14px}
+  .flow .step{flex:1 1 auto}
+}
+
+/* ── 表 ── */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.6px;background:var(--card)}
+th,td{border:1px solid var(--rule2);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:#f1ebdf;font-weight:700;font-family:var(--ft);font-size:13.5px;letter-spacing:.5px}
+tbody tr:nth-child(even){background:var(--card2)}
+td b{color:var(--accent)}
+
+/* ── 编号列表 ── */
+ol.q{list-style:none;counter-reset:c;padding:0}
+ol.q>li{
+  counter-increment:c;position:relative;
+  background:var(--card);border:1px solid var(--rule);border-radius:3px;
+  padding:10px 14px 10px 42px;margin:6px 0;font-size:14.2px;
+}
+ol.q>li::before{
+  content:counter(c,decimal-leading-zero);position:absolute;left:13px;top:11px;
+  font-family:var(--fm);font-size:11px;color:var(--accent);letter-spacing:.05em;
+}
+
+/* ── 检查清单 ── */
+ul.ck{list-style:none;padding:0}
+ul.ck li{
+  position:relative;background:var(--card);border:1px solid var(--rule);
+  border-radius:3px;padding:9px 13px 9px 36px;margin:5px 0;font-size:14px;
+}
+ul.ck li::before{
+  content:"";position:absolute;left:13px;top:12px;width:11px;height:11px;
+  border:1.5px solid var(--ink3);border-radius:1px;
+}
+
+/* ── 提示块 ── */
+.note{border:1px solid var(--rule);border-left:3px solid var(--g2);background:var(--card2);border-radius:3px;padding:13px 16px;margin:12px 0;font-size:14px}
+.note b{color:var(--g2)}
+.note.warn{border-left-color:var(--accent);background:#fdf6f4}
+.note.warn b{color:var(--accent)}
+.note.ok{border-left-color:var(--g3);background:#f4f9f5}
+.note.ok b{color:var(--g3)}
+
+/* ── 句式卡 ── */
+.pat{background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:12px 16px;margin:8px 0}
+.pat .lb{font-family:var(--fm);font-size:11px;color:var(--accent);letter-spacing:.14em;display:block;margin-bottom:5px}
+.pat .body{font-family:var(--ft);font-size:14.8px;line-height:1.85}
+.pat .use{font-size:12.5px;color:var(--ink2);margin-top:8px;padding-top:7px;border-top:1px dashed var(--rule)}
+
+/* ── 素材卡 ── */
+.mt{background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:16px 19px;margin:12px 0;border-top:2.5px solid var(--g3)}
+.mt .yr{font-family:var(--fm);font-size:11px;color:var(--g3);letter-spacing:.12em}
+.mt h4{font-family:var(--ft);font-size:16px;margin:2px 0 8px}
+.mt .fact{font-size:14px;margin:0 0 9px}
+.mt .tags{font-size:12.5px;color:var(--ink2);margin:0}
+.mt .tags .k{color:var(--ink3);font-family:var(--fm);font-size:11px;letter-spacing:.1em;margin-right:6px}
+.mt .idea{background:#f3f8f4;border-radius:2px;padding:10px 13px;margin-top:11px;font-size:13.6px;border-left:2px solid var(--g3)}
+.mt .idea .k{display:block;font-family:var(--fm);font-size:10.5px;color:var(--g3);letter-spacing:.16em;margin-bottom:3px}
+.mt .idea b{color:var(--ink)}
+
+/* ── 量表 ── */
+.rubric{width:100%;border-collapse:separate;border-spacing:0;font-size:13.4px}
+.rubric th,.rubric td{border:1px solid var(--rule);padding:0}
+.rubric thead th{background:#f1ebdf;font-family:var(--ft);text-align:center;padding:8px 6px}
+.rubric thead th:first-child{text-align:left;padding-left:12px;width:15%}
+.rubric td{vertical-align:top;padding:0}
+.rubric .dim{background:var(--card2);padding:11px 12px;font-family:var(--ft);font-weight:700;font-size:14px}
+.rubric .lv{padding:10px 11px;border-right:1px solid var(--rule2)}
+.rubric .lv:last-child{border-right:0}
+.rubric .lv .l{font-family:var(--fm);font-size:10.5px;color:var(--ink3);display:block;margin-bottom:3px}
+.rubric .lv.l0{background:#faf4f2}
+.rubric .lv.l1{background:#fbf8f2}
+.rubric .lv.l2{background:#f6f8f5}
+.rubric .lv.l3{background:#f1f6f3}
+.rubric .lv b{display:block;margin-bottom:2px}
+
+/* ── 范文 ── */
+.essay{
+  background:var(--card);border:1px solid var(--rule);border-radius:3px;
+  padding:30px 34px;margin:14px 0;font-family:var(--ft);
+  font-size:15.6px;line-height:2.15;color:#2a251e;
+}
+.essay .ttl{text-align:center;font-size:22px;font-weight:700;margin:0 0 22px;letter-spacing:4px;font-family:var(--ft)}
+.essay p{margin:0 0 15px;text-indent:2em;text-align:justify}
+.essay p.ni{text-indent:0}
+.essay b{color:var(--accent)}
+
+/* ── 题干块 ── */
+.qz{background:#f2ecdf;border-left:2px solid var(--ink3);border-radius:2px;padding:14px 18px;margin:0 0 14px;font-family:var(--ft);font-size:14.5px;line-height:1.95;color:#3d372e}
+.qz .k{font-family:var(--fm);font-size:11px;letter-spacing:.16em;color:var(--accent);display:block;margin-bottom:5px}
+.qz .src{font-family:var(--fs);font-size:12px;color:var(--ink3);display:block;margin-top:4px}
+
+/* ── 小工具 ── */
+.kw{background:#fbf0dc;padding:0 4px;border-radius:2px;font-weight:600;color:#7a5a08}
+
+/* 文档内跨模块跳转链接（.page 为 display:none，必须由脚本切页，故不能用裸锚点） */
+.jmp{
+  color:var(--accent);text-decoration:none;font-weight:700;
+  border-bottom:1px dashed var(--accent);cursor:pointer;
+}
+.jmp:hover{background:#fbf0dc;border-bottom-style:solid}
+.mono{font-family:var(--fm);font-size:12.5px;color:var(--ink2)}
+.src{font-size:12px;color:var(--ink3);font-family:var(--fm)}
+.todo{color:var(--ink3);font-style:italic}
+
+footer{
+  margin-top:60px;border-top:3px double var(--ink);padding:24px 0 60px;
+  font-size:12.5px;color:var(--ink3);line-height:1.9;
+}
+footer b{color:var(--ink2)}
+/* ══════════════ 小节级动作条（区别于页首的 .act，深底大条） ══════════════ */
+.sact{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--card2);border:1px solid var(--rule);border-left:3px solid var(--ink);
+  border-radius:3px;padding:13px 17px;margin:18px 0 6px;
+}
+.sact .lab{
+  font-family:var(--fm);font-size:10.5px;letter-spacing:.18em;color:var(--ink);
+  border:1px solid var(--rule);background:var(--card);
+  padding:2px 8px;border-radius:2px;white-space:nowrap;margin-top:2px;
+}
+.sact .txt{font-size:14px;line-height:1.75}
+.sact .txt b{color:var(--accent);font-weight:700}
+
+/* ══════════════ 宽表格独立横向滚动（避免整页被撑开） ══════════════ */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tw::-webkit-scrollbar{height:6px}
+.tw::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+.tw::-webkit-scrollbar-track{background:transparent}
+
+/* ══════════════ 平板 ══════════════ */
+@media(max-width:960px){
+  body{font-size:15.5px}
+  .wrap{padding:0 18px}
+  .masthead{padding:30px 0 22px}
+  .masthead h1{font-size:31px;letter-spacing:1.5px}
+  .masthead .deck{font-size:15px}
+  .masthead .kicker{font-size:10px;letter-spacing:.2em}
+  .dateline{gap:4px 16px;font-size:11.5px}
+
+  /* 导航改为单行横向滚动，保留分组标签 */
+  nav .inner{
+    flex-wrap:nowrap;overflow-x:auto;padding:0 18px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  nav .inner::-webkit-scrollbar{display:none}
+  nav .grp{flex:0 0 auto}
+  nav button{min-height:46px;padding:12px 10px;font-size:13px}
+  nav button .n{font-size:10px}
+  nav .glabel{font-size:9.5px;letter-spacing:.12em;padding:0 7px 0 2px}
+  nav .sep{margin:8px 9px;flex:0 0 auto}
+
+  .page{padding:26px 0 16px}
+  .shead{margin-top:34px;flex-wrap:wrap;gap:3px 12px}
+  .shead h2{font-size:20px}
+  .shead .sub{margin-left:auto}
+  .flow .step{flex:1 1 132px}
+}
+
+/* ══════════════ 手机 ══════════════ */
+@media(max-width:720px){
+  html{-webkit-text-size-adjust:100%}
+  body{font-size:16px;line-height:1.85;overflow-x:hidden}
+  .wrap{padding:0 14px}
+  /* 避开刘海与底部手势条 */
+  .masthead{padding-top:calc(24px + env(safe-area-inset-top))}
+  footer{padding-bottom:calc(48px + env(safe-area-inset-bottom))}
+
+  .masthead h1{font-size:25px;letter-spacing:1px;margin-bottom:10px}
+  .masthead .deck{font-size:14.5px;line-height:1.8}
+  .masthead .kicker{font-size:9px;margin-bottom:10px}
+  .dateline{font-size:11px;gap:3px 12px}
+
+  .shead{margin-top:28px;gap:2px 10px}
+  .shead .idx{font-size:11.5px;padding-top:2px}
+  .shead h2{font-size:18px;letter-spacing:1px}
+  .shead .sub{margin-left:0;width:100%;order:3;font-size:10.5px}
+  h3{font-size:15.5px;margin:24px 0 9px}
+  h4{font-size:14.5px}
+
+  /* 本节动作条改为纵向排布，按钮不再横向挤压 */
+  .act{flex-direction:column;gap:7px;padding:13px 15px;margin:16px 0 6px}
+  .act .lab{align-self:flex-start;margin-top:0}
+  .act .txt{font-size:14.5px}
+  .sact{flex-direction:column;gap:7px;padding:12px 14px;margin:16px 0 6px}
+  .sact .lab{align-self:flex-start;margin-top:0}
+  .sact .txt{font-size:14.5px}
+
+  .grid2,.grid3{grid-template-columns:1fr}
+  .card{padding:14px 15px}
+
+  .flow{flex-direction:column;align-items:stretch;gap:6px}
+  .flow .arw{justify-content:center;transform:rotate(90deg);height:14px}
+  .flow .step{flex:1 1 auto}
+
+  /* 表格：给出可见的滑动提示 */
+  .tw{position:relative;margin:0 -14px;padding:0 14px}
+  .tw table{min-width:480px;font-size:13px}
+  .tw th,.tw td{padding:8px 9px}
+  .tw::before{
+    content:"← 左右滑动查看完整表格 →";
+    display:block;font-family:var(--fm);font-size:10.5px;letter-spacing:.06em;
+    color:var(--ink3);margin:12px 0 5px;
+  }
+  .tw::after{content:"";display:block;height:4px}
+  /* 嵌在卡片内的表格不越出卡片边界，只在卡内滑动 */
+  .card .tw,.mt .tw,.box .tw,.note .tw{margin-left:0;margin-right:0;padding-left:0;padding-right:0}
+
+  .rubric .lv{font-size:13px}
+
+  .essay{padding:20px 17px;font-size:16.5px;line-height:2.1}
+  .essay .ttl{font-size:18px;letter-spacing:2px;margin-bottom:18px}
+  .qz{font-size:15px;padding:12px 14px}
+
+  .pat .body{font-size:15px}
+  .mt .idea{font-size:14px}
+
+  .essay b,.card b{color:var(--accent)}
+  ol.q>li{padding:10px 12px 10px 40px;font-size:14.5px}
+  ul.ck li{font-size:14.5px}
+}
+
+/* ══════════════ 超窄屏 ══════════════ */
+@media(max-width:380px){
+  .masthead h1{font-size:22px}
+  body{font-size:15.5px}
+  .tw table{min-width:420px}
+}
+
+/* ══════════════ 打印 ══════════════ */
+@media print{
+  nav,.masthead .dateline{display:none}
+  .page{display:block!important}
+  body{background:#fff}
+  .tw{overflow:visible}
+  .tw::before{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ 报头 ══════════════ -->
+<div class="masthead">
+  <div class="wrap">
+    <div class="kicker">高中语文 · 议论文说理能力训练手册</div>
+    <h1>思辨性训练 · 系统版</h1>
+    <p class="deck">从「会写」到「说得清、说得严、说得有高度」。按<b>概念 → 论证 → 辩证</b>三层能力链组织，每一节都以一个可当场执行的动作收尾。</p>
+    <div class="dateline">
+      <span>10 个模块 / 4 组</span>
+      <span>课标原文依据 ★</span>
+      <span>Toulmin 论证模型</span>
+      <span>思辨层级 L1–L5</span>
+      <span>14 条逻辑谬误</span>
+      <span>2025–2026 真题</span>
+      <span>9 张时事素材卡</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 导航 ══════════════ -->
+<nav>
+  <div class="inner">
+    <div class="grp">
+      <span class="glabel">起步</span>
+      <button class="on" data-p="p01"><span class="n">01</span>使用与诊断</button>
+    </div>
+    <div class="sep"></div>
+    <div class="grp" style="--x:1">
+      <span class="glabel">方法</span>
+      <button data-p="p02"><span class="n">02</span>理论依据</button>
+      <button data-p="p03"><span class="n">03</span>概念层</button>
+      <button data-p="p04"><span class="n">04</span>论证层</button>
+      <button data-p="p05"><span class="n">05</span>辩证层</button>
+    </div>
+    <div class="sep"></div>
+    <div class="grp">
+      <span class="glabel">资源</span>
+      <button data-p="p06"><span class="n">06</span>素材库</button>
+      <button data-p="p07"><span class="n">07</span>语言库</button>
+      <button data-p="p08"><span class="n">08</span>真题库</button>
+      <button data-p="p09"><span class="n">09</span>评论拆解</button>
+    </div>
+    <div class="sep"></div>
+    <div class="grp">
+      <span class="glabel">训练</span>
+      <button data-p="p10"><span class="n">10</span>训练与自查</button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════════ 01 使用与诊断 ══════════════ -->
+<div class="page on" id="p01">
+
+  <div class="act">
+    <span class="lab">本节动作</span>
+    <span class="txt">先花 <b>10 分钟</b>做完下面的四维能力自查，圈出最低的一格。那一格决定了你接下来几周该练哪一层——<b>不要平均用力</b>。</span>
+  </div>
+
+  <div class="shead"><span class="idx">§ 01.1</span><h2>这份材料的使用顺序</h2><span class="sub">READING ORDER</span></div>
+  <div class="flow">
+    <div class="step"><span class="n">STEP 1</span><span class="t">诊断</span><span class="d">四维量表<br>定位短板</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">STEP 2</span><span class="t">补概念</span><span class="d">03 概念层<br>定义清楚关键词</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">STEP 3</span><span class="t">补论证</span><span class="d">04 论证层<br>补上担保</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">STEP 4</span><span class="t">补辩证</span><span class="d">05 辩证层<br>让步与条件</span></div>
+    <div class="arw">→</div>
+    <div class="step hot"><span class="n">STEP 5</span><span class="t">喂资源</span><span class="d">06–09 素材<br>语言 真题</span></div>
+    <div class="arw">→</div>
+    <div class="step hot"><span class="n">STEP 6</span><span class="t">固化</span><span class="d">10 周计划<br>反复自查</span></div>
+  </div>
+  <div class="note warn">
+    <b>最常见的误用：</b>把 06–09 当故事读，记了一堆素材和句式，考场照样写不动。
+    <b>方法层（03–05）必须先于资源层（06–09）过一遍</b>——不然素材没有「接口」可用。
+  </div>
+
+  <div class="shead"><span class="idx">§ 01.2</span><h2>四维能力自查量表</h2><span class="sub">DIAGNOSTIC RUBRIC</span></div>
+  <div class="note">
+    <b>说明：</b>本量表为本手册<b>自拟</b>（依据课标「思维发展与提升」核心素养与高考作文评分标准中的「思辨」要求归纳，非官方量表）。
+    用法：找一篇你近期的作文，逐行对照，<b>如实勾选</b>，然后横向看哪一列你落在最低级。
+    L0 = 完全做不到，L3 = 稳定做到。
+  </div>
+
+  <div class="tw"><table class="rubric">
+    <thead>
+      <tr>
+        <th>维度</th>
+        <th style="width:21%"><span class="l">L0 · 缺失</span>做不到</th>
+        <th style="width:21%"><span class="l">L1 · 萌芽</span>偶尔做到</th>
+        <th style="width:22%"><span class="l">L2 · 稳定</span>多数时候</th>
+        <th style="width:22%"><span class="l">L3 · 内化</span>无需自觉</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="dim">① 概念<br>清晰度</td>
+        <td class="lv l0">全文不定义核心词，或只在开头喊一句口号</td>
+        <td class="lv l1">开头给定义，但后文写作时悄悄换成了另一个含义</td>
+        <td class="lv l2"><b>核心词有明确界定</b>，且全文守住同一含义；能指出近似词的差别（如「坚持 ≠ 固执」）</td>
+        <td class="lv l3"><b>能主动拆解题目里被默认、却从未说清的概念</b>，把「辨析」本身变成文章的一层深度</td>
+      </tr>
+      <tr>
+        <td class="dim">② 论证<br>严密性</td>
+        <td class="lv l0">例子和结论直接跳跃，中间没有「因为」</td>
+        <td class="lv l1">多数例子后有分析，但分析停留在复述材料（「这说明他很努力」）</td>
+        <td class="lv l2"><b>例后必析，且能补上「担保」</b>：说清这个例子凭什么能证明这个观点</td>
+        <td class="lv l3"><b>分论点之间有逻辑关系</b>（递进/互补），不是三个并列口号；结构模型有意识</td>
+      </tr>
+      <tr>
+        <td class="dim">③ 辩证<br>完备性</td>
+        <td class="lv l0">通篇绝对化，常用「都、必然、只要……就……」</td>
+        <td class="lv l1">有让步，但让步是「稻草人」——打一个没人主张的弱版本</td>
+        <td class="lv l2"><b>让步准确且有条件</b>：复述对方最强版本后指出其适用边界，给出「在什么条件下」的结论</td>
+        <td class="lv l3"><b>能主动构造反例与边界</b>，并说明自己的主张在哪些情况下不成立、为什么仍值得坚持</td>
+      </tr>
+      <tr>
+        <td class="dim">④ 语言<br>思辨化</td>
+        <td class="lv l0">语言平直，读完知道主张但记不住任何一个句子</td>
+        <td class="lv l1">有排比和引用，但多为填充，删掉不影响论证</td>
+        <td class="lv l2"><b>句式服务于说理逻辑</b>：转折句真的在转折，归因句真的在归因</td>
+        <td class="lv l3"><b>全文不出现任何方法名称，追问动作却清晰可见</b>——读者能感到你在跟材料较劲</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="card accent" style="margin-top:16px">
+    <h4><span class="num">→</span>按诊断结果选路线</h4>
+    <div class="tw"><table style="margin:6px 0 0">
+      <thead><tr><th style="width:30%">你的最低格</th><th>接下来两周只做这件事</th></tr></thead>
+      <tbody>
+        <tr><td><b>① 概念</b> 落在 L0/L1</td><td>每天一个概念卡：四步定义法写 100 字。素材暂时不动，先把词说准。<b>这是根，越往上越没用。</b></td></tr>
+        <tr><td><b>② 论证</b> 落在 L0/L1</td><td>改旧作：给每个例子补一句「这说明……因为……」。同时读 §04 的 Toulmin 担保表。</td></tr>
+        <tr><td><b>③ 辩证</b> 落在 L0/L1</td><td>练「不绝对化」：把文中所有「都/必然/一定」圈出来，逐个替换成限定词。每周写一段让步。</td></tr>
+        <tr><td><b>④ 语言</b> 落在 L0/L1</td><td>每周精拆 2 篇人民日报评论（§09），摘抄时必须标注「这句在做什么逻辑动作」。</td></tr>
+        <tr><td>四项都在 <b>L2</b></td><td>进 §08 真题库，一周一篇完整成文，重点打磨<b>收束的升维</b>与<b>标题的信息量</b>。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="note">
+    <b>两把尺子，别混用：</b>本节的量表量的是<b>四种能力的质量</b>（概念清晰／论证严密／辩证完备／语言思辨化）；
+    <b>§02.5 的 L1–L5 量的是论证结构的复杂度</b>。
+    <br>同一次诊断建议<b>两个都做</b>：量表告诉你「哪块弱」，L 级告诉你「整篇文章现在站在哪一层」。
+    前者定训练重点，后者定下一稿的具体目标（通常是「把 W 写出来，从 L2 跨到 L3」）。
+  </div>
+
+  <div class="shead"><span class="idx">§ 01.3</span><h2>思辨能力的四层结构</h2><span class="sub">STRATIFIED MODEL</span></div>
+  <div class="flow">
+    <div class="step" style="border-top-color:var(--ink3)"><span class="n" style="color:var(--ink3)">L1</span><span class="t">概念清晰</span><span class="d">能把关键词<br>定义清楚</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">L2</span><span class="t">论证有效</span><span class="d">前提能推出<br>结论</span></div>
+    <div class="arw">→</div>
+    <div class="step" style="border-top-color:var(--g3)"><span class="n" style="color:var(--g3)">L3</span><span class="t">辩证完备</span><span class="d">考虑反例与<br>限定条件</span></div>
+    <div class="arw">→</div>
+    <div class="step hot"><span class="n">L4</span><span class="t">价值立意</span><span class="d">在冲突中<br>做出排序</span></div>
+  </div>
+  <div class="note">
+    <b>关键：</b>多数同学卡在 L1→L2 之间——概念没定义清楚，论证就悬空。
+    而高考阅卷真正拉开档次的，是 <b>L2「论证有效」与 L3「辩证完备」</b>：前者决定「说得对不对」，后者决定「说得周不周全」。
+  </div>
+
+</div>
+
+<!-- ══════════════ 02 理论依据 ══════════════ -->
+<div class="page" id="p02">
+  <div class="act">
+    <span class="lab">本节动作</span>
+    <span class="txt">这一节是<b>地基说明</b>，不必背。看懂两件事即可：<b>① 这些方法是从课标的哪条要求来的；② 考卷上「思辨」是怎么被判出来的。</b></span>
+  </div>
+  <div class="note warn">
+    <b>本节的引用纪律：</b>下面每条结论都标了<b>证据等级</b>。
+    <span class="kw">★</span> 一手官方原文　<span class="kw">☆</span> 权威二手（官方答复/行业报刊）　<span class="kw">○</span> 学术原始文献　<span class="kw">⚠</span> 文字可靠但未逐字核对原件　<span class="kw">✗</span> 未找到权威来源　<span class="kw">◇</span> 本手册自拟
+    <br><b>★ 与 ⚠ 的区别要当真：</b>★ 可以直接引用；⚠ 用于正式出版前必须回到官方原件复核。
+  </div>
+
+  <!-- ============ 02.1 课标 ============ -->
+  <div class="shead"><span class="idx">§ 02.1</span><h2>课标：思辨写在核心素养里，不在选修模块里</h2><span class="sub">CURRICULUM STANDARD</span></div>
+
+  <div class="card accent">
+    <h4><span class="num">定义</span>核心素养之一「思维发展与提升」　<span class="kw">⚠</span></h4>
+    <p style="margin:8px 0;font-family:var(--ft);font-size:15px;line-height:2;border-left:2px solid var(--accent);padding-left:14px">
+      「思维发展与提升是指学生在语文学习过程中，通过语言运用，获得直觉思维、形象思维、逻辑思维、<b>辩证思维</b>和创造思维的发展，促进<b>深刻性</b>、敏捷性、灵活性、<b>批判性</b>和<b>独创性</b>等思维品质的提升。」
+    </p>
+    <p class="src" style="margin:0">——《普通高中语文课程标准（2017年版2020年修订）》。教育部官网只提供通知与附件 PDF（教材〔2020〕3号），<b>正文系第三方转录页比对所得，未与官方 PDF 逐页核对</b>。</p>
+  </div>
+
+  <div class="grid3">
+    <div class="card"><h4>① 思维品质是五个并列的词</h4><p style="margin:0;font-size:13.8px">「批判」只是其中一项。把思辨训练窄化成「批判性思维训练」，会漏掉<b>深刻性</b>和<b>独创性</b>——而这两项恰好是高考评分「深刻」「有创意」的直接对应（见 §02.3）。</p></div>
+    <div class="card"><h4>② 辩证思维被正式写入</h4><p style="margin:0;font-size:13.8px">「把一件事说成两面对」不再是可以省略的花活，而是<b>课标授权的思维训练</b>。§05 整节练的就是它。</p></div>
+    <div class="card"><h4>③ 路径限定为「通过语言运用」</h4><p style="margin:0;font-size:13.8px">思维训练不能脱开表达单独进行——必须<b>落到写出来</b>，而不是停在讨论或心里想明白了。</p></div>
+  </div>
+
+  <div class="card">
+    <h4><span class="num">任务群</span>「思辨性阅读与表达」——全课标唯一给出可验收指标的地方　<span class="kw">⚠</span></h4>
+    <div class="tw"><table style="margin:8px 0 0">
+      <thead><tr><th style="width:22%">课标要求</th><th style="width:38%">原文</th><th>可转成的训练动作</th></tr></thead>
+      <tbody>
+        <tr><td>说理四项</td><td>「力求<b>立论正确，语言准确，论据恰当，讲究逻辑</b>」</td><td>这四项可以<b>逐条对着作文打勾</b>——是本手册 §10.4 自查清单的骨架</td></tr>
+        <tr><td>多角度</td><td>「学习<b>多角度思考问题</b>」</td><td>二元对立卡：对同一问题写出两个互相冲突的合理立场，各自给出成立条件</td></tr>
+        <tr><td>会反驳</td><td>「学习反驳，能够做到<b>有理有据，以理服人</b>」「平等商讨，<b>有针对性、有风度、有礼貌</b>地进行辩驳」</td><td>「承认—限定—反驳」三句模板。注意<b>「有风度、有礼貌」是对反驳形式的硬性规定</b>：针对论点不针对人</td></tr>
+        <tr><td>会反思</td><td>课程目标第 6 条：「<b>自觉分析和反思自己的语文实践活动经验</b>」</td><td>写作后反思<b>不是教学技巧，是课程目标本身要求的行为</b>（见 §10.5）</td></tr>
+        <tr><td>硬指标</td><td>1.5 学分、27 课时、<b>专题讨论与辩论不少于 3 次</b></td><td>一学期只辩一次，课标任务群就没完成</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <!-- ============ 02.2 教材 ============ -->
+  <div class="shead"><span class="idx">§ 02.2</span><h2>教材依托：思辨训练在书上的真实位置</h2><span class="sub">TEXTBOOK ANCHORS</span></div>
+
+  <div class="card accent">
+    <h4><span class="num">★</span>最硬的依托：必修上册第六单元，单元名就叫「思辨性阅读与表达」　<span class="kw">☆</span></h4>
+    <p style="margin:8px 0 6px">这六篇是中国现当代「如何说理」的六个范式——<b>一篇课文配一种论证方式</b>，是现成的论证类型教材，不是要你额外找素材。</p>
+    <div class="tw"><table style="margin:0">
+      <thead><tr><th style="width:34%">课文</th><th style="width:26%">论证方式</th><th>能提取什么</th></tr></thead>
+      <tbody>
+        <tr><td>《劝学》（荀子）</td><td>正说</td><td>正面论证的排比与层进结构</td></tr>
+        <tr><td>《师说》（韩愈）</td><td>驳说</td><td><b>驳论的完整结构</b>——先立后破的比例怎么分配</td></tr>
+        <tr><td>《反对党八股（节选）》（毛泽东）</td><td>驳说</td><td>如何把一个流行说法拆成「八股」的八条</td></tr>
+        <tr><td>《拿来主义》（鲁迅）</td><td><b>隐喻说理</b></td><td>不用抽象概念也能说清道理——反「文艺腔」之外的另一条路</td></tr>
+        <tr><td>《读书：目的和前提》（黑塞）</td><td>经验说理</td><td>从个人经验上升到前提性判断的过程</td></tr>
+        <tr><td>《上图书馆》（王佐良）</td><td>经验说理</td><td>用具体场景承载抽象主张</td></tr>
+      </tbody>
+    </table></div>
+    <p class="src" style="margin:9px 0 0">篇目已对照统编必修上册电子课本目录与 2019 年教育部教材目录核对一致。</p>
+  </div>
+
+  <div class="card">
+    <h4><span class="num">★</span>专门单元：选择性必修上册第四单元「逻辑的力量」　<span class="kw">☆</span> 教育部有官方定性</h4>
+    <p style="margin:8px 0 6px">教育部在答复全国人大建议时的表述：</p>
+    <p style="margin:0 0 10px;font-family:var(--ft);font-size:14.5px;border-left:2px solid var(--accent);padding-left:13px">
+      「统编高中语文教材<b>选择性必修上册</b>编排了『逻辑的力量』单元，指导学生学习如何<b>发现潜藏的逻辑谬误、运用有效的推理方法、采取合理的论证方法</b>，以推进逻辑知识的普及，训练学生的逻辑思维能力。」
+    </p>
+    <div class="tw"><table style="margin:0">
+      <thead><tr><th style="width:30%">单元的三个学习活动</th><th>可以直接转成的议论文训练</th></tr></thead>
+      <tbody>
+        <tr><td>发现潜藏的逻辑谬误<br><span class="src">辨析「隐含前提」与「隐含假设」</span></td><td><b>谬误标记卡</b>：取 3 篇媒体评论，逐段标「这句话默认了什么」。<span class="src">→ §05 的 14 条谬误</span></td></tr>
+        <tr><td>运用有效的推理形式<br><span class="src">排除法、反证法、归谬法</span></td><td><b>同素材三写法</b>：同一素材分别用反证、排除、归谬各写一段，比较哪段更有说服力</td></tr>
+        <tr><td>采用合理的论证方法<br><span class="src">「虚拟论敌」、《六国论》逻辑链条</span></td><td><b>虚拟论敌写作</b>：给定观点 A，先写出你能想到的<b>最强反方论证 B（≥200 字）</b>，再写 A 的驳论。<span class="src">→ §05.2 让步</span></td></tr>
+      </tbody>
+    </table></div>
+    <p style="margin:10px 0 0;font-size:13.8px"><b>虚拟论敌是本节最值得优先做的一件事</b>：它一次解决三个障碍——强制从对方视角思考、强制承认对方合理处、强制补上 Toulmin 的 rebuttal。</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4><span class="num">◇</span>《乡土中国》：概念辨析的天然材料</h4>
+      <p style="margin:0;font-size:13.8px">费孝通这本书几乎<b>全由概念构成</b>（差序格局、礼治秩序、无讼……）。它是训练「如何给概念下定义、如何辨析近义概念」的现成材料——正好对应 §03.2 的概念地图。</p>
+    </div>
+    <div class="card">
+      <h4><span class="num">✗</span>三个常见的教材错引（先排除，否则地基是错的）</h4>
+      <p style="margin:0;font-size:13.8px">① 统编必修<b>没有</b>「走近鲁迅」单元（与鲁迅相关的是第六单元《拿来主义》单篇）<br>② 统编五册<b>没有</b>「追求光明」单元<br>③ 「当代文化参与」<b>不是</b>统编必修单元——那是 2003 年人教版的专题名，统编必修上册第四单元是「家乡文化生活」</p>
+    </div>
+  </div>
+
+  <!-- ============ 02.3 评分 ============ -->
+  <div class="shead"><span class="idx">§ 02.3</span><h2>评分：思辨在阅卷场上只有一个入口</h2><span class="sub">SCORING</span></div>
+
+  <div class="note warn">
+    <b>⚠ 来源性质，必须先说清：</b><b>教育部从未公开发布高考语文作文评分标准的官方文本。</b>
+    现行标准以评分细则形式在考试机构内部使用，公开网络上流传的均为第三方整理稿。本节依据两个独立流传版本（2018 / 2026）互证，结构一致、关键表述吻合，<b>但措辞有差异，且不具官方效力</b>。标准以当年考试院发布为准。
+  </div>
+
+  <div class="flow">
+    <div class="step" style="border-top-color:var(--ink3)"><span class="n" style="color:var(--ink3)">基础等级</span><span class="t">内容 20</span><span class="d">+ 表达 20</span></div>
+    <div class="arw">+</div>
+    <div class="step"><span class="n">发展等级</span><span class="t">4 项 16 点</span><span class="d">20 分<br>不求全面</span></div>
+    <div class="arw">=</div>
+    <div class="step hot"><span class="n">作文总分</span><span class="t">60 分</span><span class="d">思辨只出现在<br>「深刻」三项</span></div>
+  </div>
+
+  <div class="card accent">
+    <h4><span class="num">★</span>本手册最重要的一条结论</h4>
+    <p style="margin:8px 0 6px;font-family:var(--ft);font-size:15px;line-height:1.95">
+      在 60 分的作文里，<b>思辨能力只通过一个入口被测量</b>——发展等级的「深刻」三项：<br>
+      ① 透过现象深入本质　② 揭示事物内在的因果关系　③ 观点具有启发作用
+    </p>
+    <p style="margin:0 0 6px"><b>其余 13 个特征点，以及全部 40 分基础等级，都不奖励思辨。</b></p>
+    <div class="tw"><table style="margin:0">
+      <thead><tr><th style="width:14%">发展等级</th><th style="width:44%">分点</th><th>与思辨的关系</th></tr></thead>
+      <tbody>
+        <tr><td><b>深刻</b></td><td>①透过现象深入本质　②揭示内在因果关系　③观点具有启发作用</td><td><b>唯一直接对应思辨的评分项</b></td></tr>
+        <tr><td>丰富</td><td>④材料丰富　⑤论据充实　⑥形象丰满　⑦意境深远</td><td>数量维度，<b>不考察逻辑</b></td></tr>
+        <tr><td>有文采</td><td>⑧用词贴切　⑨句式灵活　⑩善用修辞　⑪文句有表现力</td><td>语言维度，与思辨无关</td></tr>
+        <tr><td>有创意/创新</td><td>⑫见解新颖　⑬材料新鲜　⑭构思新巧　⑮推理想象独到　⑯有个性色彩</td><td>只有 ⑫ 与思辨有关</td></tr>
+      </tbody>
+    </table></div>
+    <p style="margin:10px 0 0;font-size:13.8px"><b>三个操作后果：</b><br>
+    ① 把全部精力放在「文采」和「材料丰富」上，<b>恰好在唯一奖励思辨的那一项上是零</b>——这就解释了「文艺腔」为什么能得高分。<br>
+    ② 「深刻」的三点本身就是<b>三个可教的动作</b>：① = 从可观察事实跳到不可观察的机制；② = 不只说「A 导致 B」，要说「A <b>通过什么机制</b>导致 B」；③ = 结论能被读者迁移到新问题。<b style="color:var(--accent)">这三个动作怎么落地 → ① 的完整训练路径是 <a href="#p05-s053" class="jmp">§05.3 透过现象看本质</a>（7 步追问链 + 四层透视）；② 见 <a href="#p04-s041" class="jmp">§04.1 的担保 W</a>；③ 见 <a href="#p07-s072" class="jmp">§07.2 的结尾升维式</a>。</b><br>
+    ③ 标准明说「<b>不求全面</b>」——<b>可以单点突破</b>。只攻「深刻」一项，是最划算的提分策略。</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4><span class="num">红线一</span>立意塌了，文采救不回来</h4>
+      <p style="margin:0 0 6px;font-size:13.8px">「基础等级中的<b>内容判为四等</b>的作文，<b>表达项、特征等级项可在三等及其以下</b>酌情给分。」</p>
+      <p style="margin:0;font-size:13.8px;color:var(--accent)"><b>→ 训练顺序必须是：先立意 → 再结构 → 最后语言。</b>反过来做是本末倒置。</p>
+    </div>
+    <div class="card">
+      <h4><span class="num">红线二</span>论据不能佐证观点 = 扣分</h4>
+      <p style="margin:0 0 6px;font-size:13.8px">「考生考卷中所述论据的真实性要特别注意，如果是编造，或者有明显错误，或者<b>不能佐证文章观点的</b>，要适当扣分。」</p>
+      <p style="margin:0;font-size:13.8px;color:var(--accent)"><b>→ 这一条把「例子堆砌」从风格问题变成了扣分问题。</b>它就是 §04 强调担保的评分依据。</p>
+    </div>
+  </div>
+
+  <div class="note ok">
+    <b>向学生宣讲评分标准时，只讲稳定共识：</b>基础 40 + 发展 20；发展等级 4 项 16 点「不求全面」；内容判四等则表达与特征不得跨等；抄袭的特征等级分记 0。
+    <b>具体扣分数值（字数、错别字）不要当定论</b>——两个流传版本就不一致。
+  </div>
+
+  <!-- ============ 02.4 Toulmin ============ -->
+  <div class="shead"><span class="idx">§ 02.4</span><h2>Toulmin 六要素的精确表述（含三处常见误用）</h4><span class="sub">TOULMIN, CORRECTED</span></div>
+
+  <div class="note">
+    出处：Stephen E. Toulmin, <i>The Uses of Argument</i>, Cambridge University Press, 1958（2003 增订再版）。教学化表述见 Purdue OWL「Historical Perspectives on Argumentation」。<span class="kw">○</span>
+    <br><b>原书明确：任何论证都从三个基本部分开始——claim（主张）、grounds（依据）、warrant（论证担保）；后三者不是必需的，视需要补充。</b>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:15%">要素</th><th style="width:38%">原书定义</th><th style="width:12%">地位</th><th>中文</th></tr></thead>
+    <tbody>
+      <tr><td><b>claim</b></td><td>the assertion that authors would like to prove to their audience</td><td><b>基本</b></td><td>主张／论点</td></tr>
+      <tr><td><b>grounds</b></td><td>the evidence and facts that help support the claim</td><td><b>基本</b></td><td>依据／证据</td></tr>
+      <tr><td style="background:#fdf6f4"><b>warrant</b></td><td>the assumption that <b>links the grounds to the claim</b>, either implied or stated explicitly</td><td><b>基本</b></td><td style="background:#fdf6f4"><b>论证担保／推理许可证——把依据与主张连接起来的那个假设</b></td></tr>
+      <tr><td>backing</td><td>any additional support of the warrant</td><td>按需</td><td>对担保的进一步支撑（常给一个具体例子来担保担保）</td></tr>
+      <tr><td>qualifier</b></td><td>shows that a claim may not be true in all circumstances（"presumably, some, many"）</td><td>按需</td><td>限定词：表明主张并非一切情形下都成立</td></tr>
+      <tr><td>rebuttal</td><td>an <b>acknowledgement of another valid view</b> of the situation</td><td>按需</td><td>预反驳：<b>预先承认</b>另一个有效观点</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="grid3" style="margin-top:12px">
+    <div class="card"><h4>✗ 误说一</h4><p style="margin:0 0 5px;font-size:13.5px;color:var(--ink2)">「六要素都要写出来」</p><p style="margin:0;font-size:13.5px"><b>→ 分基本/按需两组。</b>硬凑六个反而会让文章板结。</p></div>
+    <div class="card"><h4>✗ 误说二</h4><p style="margin:0 0 5px;font-size:13.5px;color:var(--ink2)">「warrant 就是论证方法／论证思路」</p><p style="margin:0;font-size:13.5px"><b>→ 混淆两层。</b>warrant 是<b>连接依据与主张的假设</b>；归纳/类比是<b>生成依据的方式</b>。</p></div>
+    <div class="card"><h4>✗ 误说三</h4><p style="margin:0 0 5px;font-size:13.5px;color:var(--ink2)">「rebuttal 就是结尾的反驳段」</p><p style="margin:0;font-size:13.5px"><b>→ 位置不同。</b>Toulmin 的 rebuttal 是<b>主张之前</b>预先承认对立观点，用来<b>收窄自己论证的范围</b>，不是事后攻击。</p></div>
+  </div>
+
+  <div class="card accent">
+    <h4><span class="num">★</span>为什么 warrant 是关键：一条跨了 60 年的印证</h4>
+    <p style="margin:8px 0 6px">原书的教学例子正是 warrant 的作用：断言「附近有狗」（claim）时，只给出「听到犬吠」（grounds）<b>不足以成立</b>——必须补出「狗会吠叫」（warrant），推理才完成。</p>
+    <p style="margin:0 0 8px">映射到议论文：</p>
+    <div class="card p" style="margin:0;font-size:13.8px">
+      <b>主张</b>：我们必须减少不必要的刷题<br>
+      <b>依据</b>：某生每天刷题 4 小时，成绩反而下降<br>
+      <b style="color:var(--accent)">担保（学生通常不写）</b>：当学习已进入<b>边际收益递减</b>区间，继续加时投入会挤占反思与休息，从而降低有效学习
+    </div>
+    <p style="margin:11px 0 6px;font-size:13.8px">缺了担保，这篇文章读起来就只是「一个例子 + 一个看法」。而余党绪早在 2017 年的《是知津矣》里就说：</p>
+    <p style="margin:0;font-family:var(--ft);font-size:14.5px;border-left:2px solid var(--accent);padding-left:13px">
+      「堆砌再多的例子，也不能自行证明观点，『举例子』不能算是一种证明方法。只有自己通过『案例分析』，亦即<b>阐释例子中所包含的因果关系</b>，并做理论上的分析，才有说服力。」
+    </p>
+    <p style="margin:10px 0 0;font-size:13.8px"><b>一个来自哲学论证理论（1958），一个来自语文教学（2017），加上教材「识别假设前提」的活动，指向同一个缺口。</b>这是本手册 §04 存在的全部理由。</p>
+  </div>
+
+  <div class="pat">
+    <span class="lb">标注模板 ◇ ——在草稿纸旁标，不要写进作文</span>
+    <span class="body" style="font-family:var(--fm);font-size:13px;line-height:1.9">
+      主张 C：<br>
+      依据 G1：　　　　依据 G2：<br>
+      <b style="color:var(--accent)">担保 W：（依据凭什么能推出主张？必须写出来）</b><br>
+      限定 Q：（这只在什么条件下成立）<br>
+      预反驳 R：（最强的对立观点是什么？我承认它的什么？）
+    </span>
+    <span class="use"><b>为什么不能做成填空模板给学生</b>：一旦模板化，学生会产出结构统一但观点雷同的文章，反而滑向「套作」的风险区。<b>正确用法是诊断工具，不是写作模板</b>——先写后标，用标注发现自己的 W 缺口，再补写。</span>
+  </div>
+
+  <!-- ============ 02.5 层级 ============ -->
+  <div class="shead"><span class="idx">§ 02.5</span><h2>思辨层级 L1–L5：给结构一把尺子</h2><span class="sub">STRATIFIED RUBRIC</span></div>
+
+  <div class="note">
+    <b>模型性质（务必看清）：</b>本次检索<b>未找到</b>针对中国高中议论文写作的权威分级框架。下面的模型=
+    <b>有出处的骨架</b>（SOLO 五级 × 思辨性读写五层级 × Bloom 思维动作 × 课标思维品质 × 高考「深刻」三点）
+    ＋ <span class="kw">◇</span><b>本手册自拟的分级描述</b>。
+    <br>「骨架」有出处，<b>「层间行为描述」是教学设计</b>，请按学情修改。
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:11%">级别</th><th style="width:20%">可观察行为</th><th style="width:19%">典型文本特征</th><th style="width:13%">Toulmin 状态</th><th>评分对应</th></tr></thead>
+    <tbody>
+      <tr><td><b>L1</b><br>口号层</td><td>有一个态度，但无依据</td><td>通篇「应该、要、必须」；无事例，或事例与分析无关</td><td>只有 C</td><td>内容四等边缘</td></tr>
+      <tr><td><b>L2</b><br>例证层</td><td>有多个事例，彼此不连接</td><td>「有人……有人……有人……」；每段独立</td><td>C + G，<b>无 W</b></td><td>发展三～四等</td></tr>
+      <tr><td><b>L3</b><br>因果层</td><td>材料之间建立了因果／递进关系</td><td>出现「之所以……」「因此」「因为」；有转折与推进</td><td>C + G + <b>W</b>（常隐含）</td><td>发展二～三等，<b>深刻②可得分</b></td></tr>
+      <tr><td><b>L4</b><br>限定层</td><td>主张被明确限定在条件内，并处理了最强反对意见</td><td>出现「诚然……但」「只在……条件下」「虽然 A，却 B」</td><td>+ <b>Q + R</b></td><td>发展一～二等，<b>深刻①②</b></td></tr>
+      <tr><td><b>L5</b><br>迁移层</td><td>把结论迁移到新情境，或重构了问题的划分方式</td><td>结尾给出<b>可迁移的原则</b>；或重新界定「问题的真正所在」</td><td>+ <b>B</b>（必要时）</td><td>发展一等，<b>深刻③</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4><span class="num">→</span>三条使用规则</h4>
+      <ol class="q" style="margin-top:6px">
+        <li><b>判的是作品，不是学生。</b>同一学生不同作文可判不同级别。</li>
+        <li><b>不跨级评价，只标「下一级缺什么」。</b>反馈统一为：「现在是 L2；要到 L3，缺的是——<b>写出那条连接依据与主张的假设</b>。」</li>
+        <li><b>级别可回退。</b>加了一句高级辩证句式但 W 没补的作文，结构上仍属 L3，甚至因「观点说糊」低于原级。</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h4><span class="num">!</span>最危险的一类：有结构无质量</h4>
+      <p style="margin:0 0 6px;font-size:13.8px">结构到了 L3–L5，但论证质量差——<b>看起来像高分文章，却经不起追问</b>。</p>
+      <p style="margin:0 0 6px;font-size:13.8px">用 Paul &amp; Elder 的七项智性标准各打 0/1：清晰、精确、准确、相关、深刻、全面、逻辑。</p>
+      <p style="margin:0;font-size:13.8px;color:var(--accent)"><b>组合判读：</b>L3–L5 + 质量 5–7 = 真在写议论文；<b>L3–L5 + 质量 0–4 = 立即拦下重写</b>。</p>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <b>判级三步法 ◇</b>（判自己的作文，10 分钟）<br>
+    <b>① 结构扫描（2′）</b>——给每段标功能：观点／材料／分析／转折／总结。数「分析」段。0 个 → 不高于 L2。<br>
+    <b>② Toulmin 标注（3′）</b>——标 C / G / W / Q / R。<b>W 是分级的关键</b>：写不出 W 最高 L2；W 隐含但可补出 = L3；W 明示 = L3 稳固。<br>
+    <b>③ 五层级核查（5′）</b>——自问：这篇文章的<b>焦点问题</b>和结论是什么？（分析层）担保句是哪句？主张在什么条件下失效？（评估层）作者会如何回应我的质疑？（角色扮演层）<br>
+    <span class="src">依据：Paul &amp; Elder 关于读写互通的判断——「阅读中存在的问题都会导致写作出现相应问题。」</span>
+  </div>
+
+  <div class="card p">
+    <h4><span class="num">◇</span>演示：一句「看起来对」的话，其实停在 L2</h4>
+    <div class="card" style="margin:8px 0;background:var(--card2)">
+      <p style="margin:0;font-size:14px;font-family:var(--ft)">「科技越来越发达，AI 已经成为我们生活的一部分。AI 可以帮我们写作文、查资料、改错别字……很多同学都在用。太浪费时间了。所以我们应该多用 AI，这样学习效率更高。总之，AI 是新时代的好帮手。」</p>
+    </div>
+    <p style="margin:0;font-size:13.8px"><b>① 结构扫描</b>：0 个分析段，全是断言＋呼吁 → 不高于 L2。<br>
+    <b>② Toulmin</b>：C＝「应该多用 AI」；G＝「能写作文、查资料、改错」；<b style="color:var(--accent)">W＝空缺</b>（「效率更高」与「写作能力」之间没有任何连接）；Q 无；R 无。<br>
+    <b>③ 核查</b>：说不出焦点问题；说不出担保句；无法预测作者如何回应「那你还写作文干什么」。<br>
+    <b style="color:var(--accent)">结论：L2，论证质量 2/7。</b></p>
+    <p style="margin:9px 0 0;font-size:13.8px;padding:9px 12px;background:#f3f8f4;border-radius:2px">
+      <b>反馈句该怎么说</b>：「现在是 L2。要到 L3，缺的是这句假设——<b>『因为 AI 替代的是查找与校对，而这两项不构成构思能力，所以用它不损害写作能力训练』</b>。把这句话写出来，你的论据和观点就接上了。」
+    </p>
+  </div>
+
+  <div class="note ok">
+    <b>三条底线 ◇ ——比方法更容易出事的地方</b><br>
+    <b>① 清晰性优先于深度。</b>「因为观点深刻所以写得难懂」的作文，在评分上<b>先在表达项失分</b>。不得奖励晦涩。<br>
+    <b>② 以人为本不可让渡。</b>变换视角、追求辩证，都不得滑向为剥削、冷漠、群体污名化辩护。<br>
+    <b>③ 不把辩证做成姿态。</b>判定方法：<b>去掉「诚然」「然而」「不可否认」等连接词后，文章的观点是否发生变化？</b>若不变，就只有辩证的<b>形式</b>，没有辩证的<b>内容</b>。
+  </div>
+
+  <div class="note warn">
+    <b>什么时候<b>不该</b>教辩证 ◇ ——最省时间的一条判断</b>
+    <div class="tw"><table style="margin:8px 0 0">
+      <thead><tr><th style="width:52%">情形</th><th>该做什么</th></tr></thead>
+      <tbody>
+        <tr><td>题目本身存在真价值冲突（如效率与公平）</td><td>训练限定与排序</td></tr>
+        <tr><td>题目只有一个正确推论（如「该不该遵守交通规则」）</td><td><b>训练论证充分性，不要训练辩证</b>——此处的辩证是无效劳动</td></tr>
+        <tr><td>学生论点本身错误</td><td><b>先修事实层</b>，不修思维层——教辩证等于给错误论点加修辞</td></tr>
+        <tr><td>学生处于 L1–L2</td><td><b>补结构，不补辩证</b>——L1 加辩证句式只会产出更糊的 L1</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="shead"><span class="idx">§ 02.6</span><h2>证据等级与已知缺口</h2><span class="sub">AUDIT</span></div>
+  <div class="grid2">
+    <div class="card">
+      <h4><span class="num">可放心使用</span><span class="kw">★</span><span class="kw">☆</span><span class="kw">○</span></h4>
+      <ul style="margin:6px 0 0;padding-left:20px;font-size:13.6px">
+        <li>课标对思辨的定位与任务群要求（<span class="kw">⚠</span> 需以官方 PDF 最终复核）</li>
+        <li>教育部对「逻辑的力量」单元的官方定性（<span class="kw">☆</span>）</li>
+        <li>高考评分结构：基础 40 + 发展 20、4 项 16 点、三条执行细则（<span class="kw">⚠</span> 无官方公开版本）</li>
+        <li>统编必修上册第六单元篇目（已核对电子课本目录与 2019 教育部目录）</li>
+        <li>Toulmin 六要素定义与基本／按需分组（<span class="kw">○</span> 原著）</li>
+        <li>Paul &amp; Elder 七项智性标准（<span class="kw">○</span> 原著）</li>
+        <li>余党绪「例子不能自行证明观点」（<span class="kw">☆</span> 《中华读书报》2018）</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4><span class="num">需谨慎使用</span></h4>
+      <ul style="margin:6px 0 0;padding-left:20px;font-size:13.6px">
+        <li>课标「学业质量水平一／二」的思维条目：<b>未获取</b>，故未引用</li>
+        <li>「逻辑的力量」单元<b>内部编排细节</b>：来自二手转载，未与纸质教材核对</li>
+        <li>思辨性读写五层级的<b>英文原著书名</b>：来源本身未给出；该来源称「九个方面」却只列了 8 问</li>
+        <li>Bloom 六级的逐项中译：页面未逐字核对</li>
+        <li>SOLO 在中国高中议论文写作中的<b>实证效果</b>：综述明确指出无定论</li>
+        <li><b>同伴互评、概念图</b>在中国高中写作教学中的效果：<span class="kw">✗</span> 未找到权威中文来源</li>
+      </ul>
+    </div>
+  </div>
+  <p class="src" style="margin-top:12px">
+    完整研究笔记（含 15 条来源清单与逐条 URL）：<b>思辨性教学研究笔记.md</b>（同目录，约 1.8 万字）。本节为其中的浓缩与教学化转写，<b>凡本节与该笔记冲突，以笔记为准</b>。
+  </p>
+</div>
+
+<!-- ══════════════ 03 概念层 ══════════════ -->
+<div class="page" id="p03">
+
+  <div class="act">
+    <span class="lab">本节动作</span>
+    <span class="txt">拿题目里的核心词，用<b>四步定义法</b>写 100 字：① 指出大众默认 ② 追问默认的依据 ③ 修正 ④ 给新定义。<b>每天一个词，7 天见效。</b></span>
+  </div>
+
+  <div class="shead"><span class="idx">§ 03.1</span><h2>四步定义法</h2><span class="sub">CONCEPT DEFINITION</span></div>
+  <div class="card">
+    <h4><span class="num">四步</span>把一个「人人都会用、但没人说得清」的词拆开</h4>
+    <ol class="q">
+      <li><b>指出大众默认</b>：说出人们通常以为它是什么意思。</li>
+      <li><b>追问默认的依据</b>：为什么会有这个默认？它成立吗？在什么情况下不成立？</li>
+      <li><b>提出修正</b>：结合题目材料，把定义往真实方向挪一挪。</li>
+      <li><b>给出新定义</b>：一句话写成可被检验的判断句。</li>
+    </ol>
+    <p style="margin:12px 0 0"><b>示范 · 「坚持」</b>：人们默认坚持＝死磕到底＝永不放弃（步1）。这默认隐含一个前提：只要方向正确，坚持越久越好（步2）。但材料里的「坚持」若不修正方向，投入越多反而离目标越远（步3）。故<b>坚持是在方向正确、代价可承受、且有反馈信号时，仍选择继续投入</b>（步4）。</p>
+  </div>
+
+  <div class="note ok">
+    <b>为什么这招有效：</b>它不是「你想太多」，而是<b>把题目默认没说清的东西说清楚了</b>。
+    高考几乎每道思辨题都留着一个没被言明的概念——找到它，你就拿到了区分度。
+  </div>
+
+  <div class="shead"><span class="idx">§ 03.2</span><h2>概念地图：厘清近义词的边界</h2><span class="sub">CONCEPT MAP</span></div>
+  <div class="tablewrap">
+    <div class="tw"><table>
+      <thead><tr><th style="width:24%">容易混的一对</th><th style="width:32%">分界线在哪</th><th>作文里怎么用</th></tr></thead>
+      <tbody>
+        <tr><td><b>坚持 / 固执</b></td><td>坚持以<b>目标是否仍值得追求</b>为尺度；固执以<b>已投入的时长</b>为尺度</td><td>「方向可以坚定，路径却可以灵活」</td></tr>
+        <tr><td><b>创新 / 标新立异</b></td><td>创新要<b>经得起实践检验</b>；标新立异只求「不一样」</td><td>「新」不是目的，是手段</td></tr>
+        <tr><td><b>平凡 / 平庸</b></td><td>平凡是<b>位置</b>，平庸是<b>状态</b>；平凡可通向伟大，平庸只是重复</td><td>「不在岗位大小，而在是否做到极致」</td></tr>
+        <tr><td><b>传承 / 复制</b></td><td>传承是<b>守内核、换表达</b>；复制是连内核一起搬</td><td>「传统不是包袱，是待重新讲述的富矿」</td></tr>
+        <tr><td><b>担当 / 盲从</b></td><td>担当是<b>经过判断后的承担</b>；盲从是不判断就承担</td><td>「敢承担，也要敢判断」</td></tr>
+        <tr><td><b>自由 / 放纵</b></td><td>自由是<b>在规则内选择</b>；放纵是取消规则</td><td>把「自由」偷换成「放纵」是最常见的偷换概念</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="shead"><span class="idx">§ 03.3</span><h2>苏格拉底式追问：从隐藏前提入手</h2><span class="sub">SOCRATIC INQUIRY</span></div>
+  <div class="card">
+    <h4><span class="num">六问</span>对任何观点都可以发问</h4>
+    <ol class="q">
+      <li><b>澄清概念</b>——你说的这个「X」，到底指什么？</li>
+      <li><b>追问理由</b>——凭什么这么说？证据是什么？</li>
+      <li><b>寻找反例</b>——有没有相反的情况？</li>
+      <li><b>考察前提</b>——这个说法预先假设了什么？假设成立吗？</li>
+      <li><b>推演后果</b>——如果按这个逻辑推到极致，会怎样？</li>
+      <li><b>换个视角</b>——反对者会怎么反驳？</li>
+    </ol>
+  </div>
+  <div class="note">
+    <b>与四步定义法的分工：</b>四步定义法从<span class="kw">大众默认</span>入手，苏格拉底追问从<span class="kw">隐藏前提</span>入手。
+    两者都是「用固定程序把模糊的认识逼清楚」——这也正是思辨性写作的核心动作。
+    <br><b>考场提示：</b>不必六问全用。挑<b>第 1、3、4 问</b>，通常就能撑起一段有深度的分析。
+  </div>
+
+</div>
+
+<!-- ══════════════ 04 论证层 ══════════════ -->
+<div class="page" id="p04">
+
+  <div class="act">
+    <span class="lab">本节动作</span>
+    <span class="txt">改写你上次作文里的<b>第一个例子</b>，在它后面补一句：<b>「这说明……因为……」</b>。你补的那句「因为」，就是 Toulmin 的担保。</span>
+  </div>
+
+  <div class="shead" id="s041"><span class="idx">§ 04.1</span><h2>Toulmin 论证模型：论证的六块骨头</h2><span class="sub">TOULMIN MODEL</span></div>
+  <div class="note">
+    英国哲学家斯蒂芬·图尔敏（Stephen Toulmin）在《论证的使用》（1958）中提出。它比传统三段论更适合议论文，
+    因为真实写作里的论证<b>从不是绝对的，而是带条件、可反驳、有强度</b>的。
+    <br><b>原书把六要素分成两组：</b><b>①主张 C、②依据 G、③担保 W 是基本要素</b>，任何论证都从这三者开始；
+    <b>④支撑 B、⑤限定 Q、⑥反驳 R 是按需补充</b>。硬凑六个反而会让文章板结。
+    <span style="display:block;margin-top:6px" class="src">精确表述、三处常见误用与跨理论印证 → 见 §02.4</span>
+  </div>
+  <div class="flow">
+    <div class="step"><span class="n">①</span><span class="t">前提 / 数据</span><span class="d">Data<br>事实依据</span></div>
+    <div class="arw">→</div>
+    <div class="step" style="border-top-color:var(--accent)"><span class="n">②</span><span class="t">担保</span><span class="d">Warrant<br>桥，最易漏</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">③</span><span class="t">支撑</span><span class="d">Backing<br>担保的后盾</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">④</span><span class="t">限定</span><span class="d">Qualifier<br>多大程度上</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">⑤</span><span class="t">反驳</span><span class="d">Rebuttal<br>何时例外</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">⑥</span><span class="t">结论</span><span class="d">Claim<br>主张</span></div>
+  </div>
+
+  <div class="shead"><span class="idx">§ 04.2</span><h2>走一遍：完整示范</h2><span class="sub">WORKED EXAMPLE</span></div>
+  <div class="card">
+    <h4><span class="num">例</span>「因为小马出生在中国，所以小马是中国人」</h4>
+    <div class="tw"><table style="margin:8px 0 0">
+      <thead><tr><th style="width:14%">要素</th><th style="width:40%">内容</th><th>在作文里对应什么</th></tr></thead>
+      <tbody>
+        <tr><td><b>前提</b></td><td>小马出生在中国</td><td>你要摆的事实、现象、数据</td></tr>
+        <tr><td><b>担保</b></td><td>在中国出生的人通常都是中国人</td><td><b>「因为……」——例子与结论之间的桥</b></td></tr>
+        <tr><td><b>支撑</b></td><td>《中华人民共和国国籍法》相关规定</td><td>为担保找权威依据（引理论、原理、公理）</td></tr>
+        <tr><td><b>限定</b></td><td>小马<b>很有可能</b>是中国人</td><td>限定词：很可能、通常、在多数情况下</td></tr>
+        <tr><td><b>反驳</b></td><td>但若父母为外国人，或其后加入他国国籍，则不然</td><td>让步段、反例、边界</td></tr>
+        <tr><td><b>结论</b></td><td>小马是中国人（带限定）</td><td>你的中心论点</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="note warn">
+    <b>学生作文最常见的毛病就是缺②担保。</b>「例 + 结论」直接跳过去，中间那座桥没人搭。
+    <br><b>万能自问：</b>我用的这个例子，凭什么能证明我说的这个观点？<span class="kw">把那座桥写出来</span>。
+    <br><b>这一条不是文风问题，是扣分项</b>：评分细则写明「不能佐证文章观点的」论据要扣分（见 §02.3 红线二）。
+  </div>
+
+  <div class="card accent">
+    <h4><span class="num">→</span>用这套模型给自己判级：L1 口号 → L2 例证 → L3 因果 → L4 限定 → L5 迁移</h4>
+    <p style="margin:8px 0 0;font-size:14px">§02.5 给了完整的五级表与判级三步法。<b>它和本节的 Toulmin 是同一件事的两面</b>——Toulmin 的 W 写没写出来，直接决定你是 L2 还是 L3。</p>
+  </div>
+
+  <div class="shead"><span class="idx">§ 04.3</span><h2>五种文章结构模型</h2><span class="sub">STRUCTURE</span></div>
+  <div class="tw"><table>
+    <thead><tr><th style="width:14%">结构</th><th style="width:36%">形态</th><th>适合什么题</th></tr></thead>
+    <tbody>
+      <tr><td><b>层进式</b></td><td>是什么 → 为什么 → 怎么办，由浅入深</td><td>思辨性最强，<b>高考首选</b></td></tr>
+      <tr><td><b>对照式</b></td><td>正例 + 反例对比论证</td><td>有明确对立面的题（守正 vs 创新）</td></tr>
+      <tr><td><b>总分式</b></td><td>总论点 → 3 个分论点 → 总结</td><td>稳妥但易平面，<b>必须给分论点排出逻辑关系</b></td></tr>
+      <tr><td><b>并列式</b></td><td>几个分论点平行展开</td><td>慎用，容易「各打五十大板」</td></tr>
+      <tr><td><b>综合式</b></td><td>以上混合</td><td>高分作文常态</td></tr>
+    </tbody>
+  </table></div>
+  <div class="card accent">
+    <h4><span class="num">推荐</span>六字连珠式：点 · 正 · 反 · 深 · 联 · 总</h4>
+    <div class="flow" style="margin:10px 0 0">
+      <div class="step"><span class="n">点</span><span class="t">提出论点</span></div>
+      <div class="arw">→</div>
+      <div class="step"><span class="n">正</span><span class="t">正面论证</span></div>
+      <div class="arw">→</div>
+      <div class="step"><span class="n">反</span><span class="t">反面论证</span></div>
+      <div class="arw">→</div>
+      <div class="step"><span class="n">深</span><span class="t">深入本质</span></div>
+      <div class="arw">→</div>
+      <div class="step"><span class="n">联</span><span class="t">联系现实</span></div>
+      <div class="arw">→</div>
+      <div class="step hot"><span class="n">总</span><span class="t">总结升华</span></div>
+    </div>
+    <p style="margin:10px 0 0;font-size:14px">它把<b>对照式</b>与<b>层进式</b>揉在一起——既是对照，又是推进。结构严谨、易操作，是思辨题最稳的骨架。</p>
+  </div>
+
+  <div class="shead"><span class="idx">§ 04.4</span><h2>六顶思考帽：审题时快速切分角度</h2><span class="sub">SIX THINKING HATS</span></div>
+  <div class="grid2">
+    <div class="tw"><table>
+      <thead><tr><th style="width:18%">帽子</th><th style="width:30%">角度</th><th>用在哪</th></tr></thead>
+      <tbody>
+        <tr><td><b>白帽</b></td><td>事实与数据</td><td>开头引入现象</td></tr>
+        <tr><td><b>红帽</b></td><td>情感与直觉</td><td>个人体验、引发共鸣</td></tr>
+        <tr><td><b>黑帽</b></td><td>风险与批判</td><td><b>让步段的天然来源</b></td></tr>
+        <tr><td><b>黄帽</b></td><td>价值与可能</td><td>正面立论</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tw"><table>
+      <thead><tr><th style="width:18%">帽子</th><th style="width:30%">角度</th><th>用在哪</th></tr></thead>
+      <tbody>
+        <tr><td><b>绿帽</b></td><td>创新与替代</td><td>提「怎么办」的新方案</td></tr>
+        <tr><td><b>蓝帽</b></td><td>总控与组织</td><td>结尾收束、统筹全文</td></tr>
+        <tr><td colspan="3" style="background:#f6f3ec"><b>考场用法</b><br>审题时花 30 秒跑一遍六顶帽，把想说的分门别类。文章的「多角度」自然就有了，不会只从一个方向说三遍。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+</div>
+
+<!-- ══════════════ 05 辩证层 ══════════════ -->
+<div class="page" id="p05">
+
+  <div class="act">
+    <span class="lab">本节动作</span>
+    <span class="txt">拿上周作文，用 <kbd>Ctrl</kbd>+<kbd>F</kbd> 搜「都」「必然」「一定」「只要」。<b>每搜出一处，问自己：能不能换个更准确的词？</b>——这是提升辩证度最省力的动作。</span>
+  </div>
+
+  <div class="shead"><span class="idx">§ 05.1</span><h2>14 条逻辑谬误自查表</h2><span class="sub">FALLACY CHECKLIST</span></div>
+  <div class="note">
+    <b>两个用处：</b>① 检查自己的论证有没有捅娄子；② 一眼看穿题目材料或对方观点的漏洞，反驳时有的放矢。
+    <br><b>但切记：</b><span class="kw">不能把谬误名称写进作文</span>（和「贴方法标签」同理）——要化在说理里。
+  </div>
+
+  <h3 style="border-left-color:var(--ink3)">一 · 概念类</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:17%">谬误</th><th style="width:38%">长什么样</th><th>怎么避免</th></tr></thead>
+    <tbody>
+      <tr><td><b>偷换概念</b></td><td>把「自由」悄悄换成「放纵」：前半句讲 A，后半句批的是 B</td><td>核心词一旦定义，全文守住同一含义；发现跑偏立刻回到定义</td></tr>
+      <tr><td><b>稻草人</b></td><td>把对方观点夸张成「不就是让人随便乱来吗」，再打倒它</td><td>反驳前先<b>准确复述对方的最强版本</b>，再指出其局限</td></tr>
+      <tr><td><b>非黑即白</b><br>（假两难）</td><td>「要么……要么……」，把连续光谱切成两半</td><td>找第三种可能：不是二选一，而是<b>在张力中兼顾</b></td></tr>
+      <tr><td><b>循环论证</b></td><td>「他值得信任，因为他是个诚信的人」——结论当前提</td><td>担保必须<b>独立于结论</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 style="border-left-color:var(--ink3)">二 · 推理类</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:17%">谬误</th><th style="width:38%">长什么样</th><th>怎么避免</th></tr></thead>
+    <tbody>
+      <tr><td><b>以偏概全</b></td><td>一个同学作弊 → 现在学生都道德滑坡</td><td>检查样本是否<b>有代表性</b>；宁可用「有些」也不用「都」</td></tr>
+      <tr><td><b>强加因果</b></td><td>「自从他当了班长，班级成绩就下降了」</td><td>相关 ≠ 因果。追问：还有没有<b>第三个因素</b>？</td></tr>
+      <tr><td><b>滑坡谬误</b></td><td>允许一次迟到 → 纪律全崩 → 学校完蛋</td><td>每一步都要求<b>必然性</b>，而不是「有可能」层层堆叠</td></tr>
+      <tr><td><b>幸存者偏差</b></td><td>「辍学的都成了老板」——只看到成功的那些</td><td>主动追问：<b>看不见的那批人</b>去哪了？</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 style="border-left-color:var(--ink3)">三 · 诉诸类（用「外部力量」代替说理）</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:17%">谬误</th><th style="width:38%">长什么样</th><th>怎么避免</th></tr></thead>
+    <tbody>
+      <tr><td><b>诉诸权威</b></td><td>「某某专家说了，所以一定对」</td><td>权威只能作<b>佐证</b>，理据要靠推理本身</td></tr>
+      <tr><td><b>诉诸情感</b></td><td>用煽情的苦难故事代替逻辑</td><td>情感可以有，但<b>必须跟分析</b>（例后必析）</td></tr>
+      <tr><td><b>诉诸大众</b></td><td>「大多数人都这么认为，所以正确」</td><td>多数人的看法是否等于正确，<b>本身就是待论证的命题</b></td></tr>
+      <tr><td><b>人身攻击</b></td><td>「他道德有问题，所以他说的话都不可信」</td><td>批评<b>观点</b>而非<b>人</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 style="border-left-color:var(--ink3)">四 · 跑题类</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:17%">谬误</th><th style="width:38%">长什么样</th><th>怎么避免</th></tr></thead>
+    <tbody>
+      <tr><td><b>转移话题</b><br>（红鲱鱼）</td><td>被问「为何迟到」，答「路上有人违反交规」</td><td>时刻回扣<b>题目的核心问号</b>，每段末尾回扣一次</td></tr>
+      <tr><td><b>举证责任转移</b></td><td>「你证明不了它是错的，所以它对」</td><td>提出主张的一方，<b>负有举证责任</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="card accent">
+    <h4><span class="num">→</span>考场 3 分钟谬误自查</h4>
+    <ul class="ck" style="margin-top:8px">
+      <li>核心词全文<b>含义一致</b>吗？（偷换概念）</li>
+      <li>每个关键句都配了<b>理由</b>吗？还是只是断言？</li>
+      <li>有没有在用「<b>都 / 必然 / 一定</b>」？能否换成限定词？</li>
+      <li>让步段是不是在打一个<b>没人主张的稻草人</b>？</li>
+      <li>例子与结论之间的<b>担保</b>补上了吗？</li>
+    </ul>
+  </div>
+
+  <div class="shead"><span class="idx">§ 05.2</span><h2>让步的正确写法</h2><span class="sub">CONCESSION</span></div>
+  <div class="pat">
+    <span class="lb">模板</span>
+    <span class="body">诚然，……有它的道理：……。但若将这一逻辑推向极致，便会发现……。究其原因，是因为……。因此，真正的问题不在于是否……，而在于<b>在什么条件下</b>……。</span>
+  </div>
+  <div class="note warn">
+    <b>让步段的三个常见塌房：</b><br>
+    ① <b>稻草人</b>——把对方写得极弱，打倒了也不算数<br>
+    ② <b>假转折</b>——「当然也有不足」然后再说优点，等于没让步<br>
+    ③ <b>让步即投降</b>——让步的部分比主张的部分还长
+    <br><b>检验标准：</b>把你的让步单独拎出来，如果一个反对者看了仍然觉得「你只懂了一半」，那就是合格的让步。
+  </div>
+
+  <div class="shead" id="s053"><span class="idx">§ 05.3</span><h2>透过现象看本质：追问链 · 四层透视 · 冰山</h2><span class="sub">SEEING THROUGH</span></div>
+
+  <div class="note">
+    <b>这不是口号，是阅卷场的术语。</b>60 分作文里思辨只有一个入口——发展等级「深刻」三项（<b>§02.3</b>），<b>第 ① 项的原文就是「透过现象深入本质」</b>。课堂口语多说「透过现象<b>看</b>本质」，两者同指一件事。
+    <br><b>它为什么可教：</b>本质不是玄学，它＝<span class="kw">可重复发生的机制</span>。能写成机制，就能写成句子——这是它能被训练的唯一理由。
+  </div>
+  <p style="margin:6px 0 0;font-size:13.8px;color:var(--ink2)"><b>与 §04.2 的分工（别混）：</b>Toulmin 管<b>单条论证的严密性</b>——例与论点之间缺不缺那座桥；追问链管<b>材料挖掘的深度</b>——这个现象到底怎么来的。一个向下钻逻辑，一个向下钻事实。</p>
+
+  <h3>一 · 7 步追问链</h3>
+  <div class="flow">
+    <div class="step"><span class="n">STEP 1</span><span class="t">现象</span><span class="d">看得见的<br>那个事实</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">STEP 2</span><span class="t">表面原因</span><span class="d">当事人自己<br>说的理由</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">STEP 3</span><span class="t">深层原因</span><span class="d">条件与认知<br>上的成因</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">STEP 4</span><span class="t">心理原因</span><span class="d">情绪与<br>认知偏差</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">STEP 5</span><span class="t">结构原因</span><span class="d">持续制造它<br>的机制</span></div>
+    <div class="arw">→</div>
+    <div class="step hot"><span class="n">STEP 6</span><span class="t">本质</span><span class="d">一句话的<br>可迁移判断</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">STEP 7</span><span class="t">对策</span><span class="d">针对本质<br>而非现象</span></div>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:6%">步</th><th style="width:34%">这一步在追问什么</th><th>例：学生熬夜刷题</th></tr></thead>
+    <tbody>
+      <tr><td><b>1</b></td><td>看得见的那个事实是什么</td><td>每天刷题到凌晨，成绩反而下降</td></tr>
+      <tr><td><b>2</b></td><td>当事人自己说的理由是什么</td><td>作业多，想提分</td></tr>
+      <tr><td><b>3</b></td><td>条件与认知上的成因是什么</td><td>把「投入时长」当成了衡量努力的<b>唯一</b>指标</td></tr>
+      <tr><td><b>4</b></td><td>情绪与认知偏差在起作用吗</td><td>怕落后（焦虑）＋ 从众（大家都在熬）</td></tr>
+      <tr><td><b>5</b></td><td>什么机制在持续制造它</td><td>评价标准单一、优质资源稀缺、上升通道窄</td></tr>
+      <tr><td><b>6</b></td><td><b>一句话的判断是什么（须可迁移）</b></td><td><b>在不确定中用透支换安全感</b></td></tr>
+      <tr><td><b>7</b></td><td>对策该针对哪一层</td><td>先诊断学科短板，再分配精力；用「有效学习时长」而非「总时长」自评</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note warn">
+    <b>三条停止条件：</b>
+    <br>① <b>必须走到第 6 步才停。</b>停在第 2 步就是普通作文——「作业多所以熬夜」没有任何分析含量。
+    <br>② <b>第 6 步必须是一句可迁移的判断，不是感慨。</b>「年轻人很努力」不是本质；「以时长替代效率的自我评价正在失效」才是。
+    <br>③ <b>每一步都要有材料支撑。</b>空转就是编——这同时就是 §05.1 反「以偏概全」的要求。
+  </div>
+
+  <h3>二 · 四层透视：换个角度切同一现象</h3>
+  <p style="margin:4px 0 0;font-size:13.8px;color:var(--ink2)">追问链是<b>往下钻</b>（一条线走到底）；四层透视是<b>往横切</b>（四个方向各切一刀）。两者交替使用：横切找到一个新角度，再竖着钻下去。</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>① 心理层</h4>
+      <p style="margin:0;font-size:13.8px">焦虑、从众、虚荣、恐惧、安全感——<b>个体为何这样做</b></p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--accent)">
+      <h4 style="color:var(--accent)">② 利益层</h4>
+      <p style="margin:0;font-size:13.8px">谁受益，谁买单——<b>动力来自哪里，成本转嫁给谁</b></p>
+    </div>
+    <div class="card">
+      <h4>③ 制度层</h4>
+      <p style="margin:0;font-size:13.8px">规则、评价、资源分配——<b>什么机制在奖励这种行为</b></p>
+    </div>
+    <div class="card">
+      <h4>④ 文化层</h4>
+      <p style="margin:0;font-size:13.8px">时代观念、集体价值——<b>我们为什么觉得这样「正常」</b></p>
+    </div>
+  </div>
+
+  <div class="note ok">
+    <b>利益层为什么最出活：材料一个字没换，视角一换，陈旧感立刻消失。</b>
+    <br>✗ <b>道德批评层</b>：「996 不道德。」→ 读者反应：老生常谈。
+    <br>✓ <b>利益层</b>：「谁受益？项目按时交付、公司利润。<b>谁买单？</b>员工的身体与家庭时间——而这份成本<b>不进入任何一方的账面</b>。」→ 立刻从道德评价升到机制分析。
+  </div>
+
+  <h3>三 · 冰山模型：走制度层的一条具体路径</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>四层</h4>
+      <ul>
+        <li><b>① 事件</b>（看得见）→ 谁做了什么</li>
+        <li><b>② 模式</b> → 这事是不是反复发生</li>
+        <li><b>③ 结构</b> → 什么机制在持续制造它</li>
+        <li><b>④ 心智模式</b> → 人们心里默认什么观念</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>举例：学生熬夜刷题</h4>
+      <ul>
+        <li><b>事件</b>：熬夜</li>
+        <li><b>模式</b>：一到考前集体熬夜</li>
+        <li><b>结构</b>：评价标准单一、优质资源稀缺</li>
+        <li><b>心智</b>：默认「时间投入 = 努力」</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note ok">
+    <b>思辨升级点：</b>普通作文停在<b>事件层</b>（批评熬夜不好），能到 <b>结构层与心智层</b>的作文，
+    才能解释「为什么明知不好还要做」——<span class="kw">解释了「为什么」，才算思辨</span>。
+  </div>
+
+  <h3>四 · 成文示范：分析怎样变成一段考场文字</h3>
+  <div class="note" style="font-size:15px;line-height:2.1;border-left:3px solid var(--ink)">
+    表面看，熬夜刷题是勤奋；往深里看，它常是评价焦虑下的低效补偿。<b>之所以如此</b>，不仅因为作业压力，<b>更因为</b>分数评价单一、上升通道有限。若只批评学生不自律，就遮蔽了制度与心理的双重挤压。真正的勤奋，不是比谁睡得更晚，而是比谁更会诊断问题、分配精力。
+  </div>
+  <div class="note ok">
+    <b>逐句标注——示范的价值在这里，不在那段文字本身：</b>
+    <br>「表面看……往深里看」＝完成追问链 <b>1 → 6</b> 的跳转，这就是评分「深刻①」在段落里的样子。
+    <br>「之所以如此」＋「不仅因为……更因为」＝评分「<b>深刻②揭示内在因果</b>」的固定句式，两次归因一次比一次深。
+    <br>「若只批评学生不自律，就遮蔽了……」＝主动挡掉最常见的浅层写法，同时亮出四层透视里的<b>制度层与心理层</b>。
+    <br>结尾「不是比谁睡得更晚，而是比谁更会……」＝给出<b>可迁移的标准</b>，对应「深刻③观点有启发」。
+    <br>整段<b>不出现「追问链」「本质」「透视」任何一个方法名</b>——§05.4 的贴标签检验在这一段就已成立。
+  </div>
+
+  <div class="sact">
+    <span class="lab">本节动作</span>
+    <span class="txt">拿上周作文里<b>任何一个现象句</b>，在草稿纸旁跑一遍 7 步追问链（<b>不写进作文</b>，10 分钟）。跑完只回答一句：<b>第 6 步的「本质」，能不能用到另一个话题上？</b><br>能迁移 → 这一步到位，对应 §02.5 的 <b>L3 因果层</b>；不能 → 你写的是感慨不是机制，回到第 6 步重写。</span>
+  </div>
+
+  <div class="shead"><span class="idx">§ 05.4</span><h2>把方法化进语言：不要贴标签</h2><span class="sub">NO LABELING</span></div>
+  <div class="grid2">
+    <div class="note warn" style="margin:0">
+      <b>✗ 贴标签的写法</b><br>
+      「我们可以用追问我方法、苏格拉底式提问，来层层深入地分析这个问题。」
+    </div>
+    <div class="note ok" style="margin:0">
+      <b>✓ 化在语言里的写法</b><br>
+      「表面看，我的坚持是勤奋；往深里想，它更像一种心理补偿——用『耗时间』替代『找方法』。」
+    </div>
+  </div>
+  <p style="margin:10px 0 0;font-size:14px"><b>判定标准：</b>全文搜不到任何一个方法名称，但读者能感到你在跟材料较劲——这就是化进去了。方法是<b>发动机</b>，不是<b>车标</b>。</p>
+
+</div>
+
+<!-- ══════════════ 06 素材库 ══════════════ -->
+<div class="page" id="p06">
+
+  <div class="act">
+    <span class="lab">本节动作</span>
+    <span class="txt">不要通读。按<b>主题挑 3 张</b>抄进素材卡，每张必须补上<span class="kw">④反例或边界</span>——这一栏没人会给你，是你自己想出来的。</span>
+  </div>
+
+  <div class="note ok">
+    <b>使用原则：</b>素材不是用来「贴」的，是用来「析」的。每张卡片都给了<b>思辨切口</b>——那才是阅卷老师想看的东西。
+    <b>一个素材用透，胜过十个素材罗列。</b>
+  </div>
+
+  <div class="shead"><span class="idx">§ 06.1</span><h2>历史与精神</h2><span class="sub">HISTORY · SPIRIT</span></div>
+
+  <div class="mt">
+    <div class="yr">2026 · 头号热点</div>
+    <h4>红军长征胜利 90 周年</h4>
+    <p class="fact">1936 年 10 月红军三大主力会师，长征胜利。二万五千里「红飘带」划下一道人类意志的轨迹。<b>2026 年 9 月 29 日，「雪山草地——纪念中国工农红军长征胜利 90 周年文物专题展」在京开幕。</b></p>
+    <p class="tags"><span class="k">适用话题</span>长征精神、理想信念、青年担当、接续奋斗、精神传承</p>
+    <div class="idea"><span class="k">思辨切口</span>今天的长征是科技攻关、乡村振兴、文化传承。要写的不是「苦不苦」，而是<b>「长征精神的内核究竟是什么」</b>——是吃苦，还是绝境中对方向的判断与对目标的坚持？把「体力长征」迁移到「精神长征」，素材才有当代性。</div>
+  </div>
+
+  <div class="mt">
+    <div class="yr">2025 · 重大纪念</div>
+    <h4>中国人民抗日战争暨世界反法西斯战争胜利 80 周年</h4>
+    <p class="fact">2025 年 <b>9 月 3 日</b>，纪念大会在北京天安门广场隆重举行。<b>2025 年高考全国一卷</b>即以老舍《鼓书艺人》、艾青《我爱这土地》、穆旦《赞美》为材料命题「民族魂」。</p>
+    <p class="tags"><span class="k">适用话题</span>民族魂、铭记历史、家国情怀、和平发展</p>
+    <div class="idea"><span class="k">思辨切口</span><b>铭记 ≠ 仇恨，纪念 ≠ 停留在过去。</b>历史记忆的价值在于让后人知道「什么值得守护」。避免把爱国写成口号——用具体的人（一个鼓书艺人、一只嘶哑歌唱的鸟）去承载抽象的民族魂。</div>
+  </div>
+
+  <div class="shead"><span class="idx">§ 06.2</span><h2>科技与发展</h2><span class="sub">SCIENCE · DEVELOPMENT</span></div>
+
+  <div class="mt">
+    <div class="yr">2025 · 科技里程碑</div>
+    <h4>中国「人造太阳」EAST 创世界纪录</h4>
+    <p class="fact">2025 年 1 月 20 日，全超导托卡马克核聚变实验装置（EAST）首次实现 <b>1 亿摄氏度 1000 秒</b>稳态长脉冲高约束模等离子体运行，后刷新至 <b>1066 秒</b>，标志聚变研究从基础探索迈向工程实践。入选 2025 中国十大科技进展。</p>
+    <p class="tags"><span class="k">适用话题</span>科技自立、长期主义、探索未知、国之重器</p>
+    <div class="idea"><span class="k">思辨切口</span>可控核聚变是「终极能源」，却要几十年才能见分晓。在一个追求即时反馈的时代，<b>「为什么有人愿意做几十年看不到结果的事」</b>——这才是这道素材真正的思辨点。</div>
+  </div>
+
+  <div class="mt">
+    <div class="yr">2025 · 创新路径</div>
+    <h4>国产大模型 DeepSeek 引发全球关注</h4>
+    <p class="fact">2025 年初，国产大模型 DeepSeek 以<b>较低成本、开源共享</b>的方式达到顶尖性能，引发全球对「算力堆砌」之外另一条技术路径的讨论。</p>
+    <p class="tags"><span class="k">适用话题</span>创新、破局、开放共享、青年科技人才</p>
+    <div class="idea"><span class="k">思辨切口</span>技术突破靠「堆资源」还是靠「换思路」？<b>当资源有限时，创新往往发生在路径选择上，而非投入总量上。</b>可类比个人学习：不是耗更多时间，而是换更聪明的方法。</div>
+  </div>
+
+  <div class="mt">
+    <div class="yr">2025–2026 · 星辰大海</div>
+    <h4>航天与深空：嫦娥六号、祖冲之三号、神舟系列</h4>
+    <p class="fact">嫦娥六号月背样品研究首次揭开<b>月球背面演化历史</b>（2025 年 7 月集中发布）；「祖冲之三号」量子计算原型机创造世界新纪录；神舟二十号等任务持续开展空间科学实验。</p>
+    <p class="tags"><span class="k">适用话题</span>探索、深耕、创新、团队协作</p>
+    <div class="idea"><span class="k">思辨切口</span>从「跟跑」到「领跑」的转折点在哪里？<b>仰望星空与脚踏实地并不矛盾</b>——每一个宏大目标的背后，都是无数次重复的、枯燥的验证。</div>
+  </div>
+
+  <div class="shead"><span class="idx">§ 06.3</span><h2>文化与传播</h2><span class="sub">CULTURE · MEDIA</span></div>
+
+  <div class="mt">
+    <div class="yr">2025 · 现象级</div>
+    <h4>《哪吒之魔童闹海》：传统文化「活」在当下</h4>
+    <p class="fact">2025 年春节档上映，中国大陆票房 <b>154.46 亿元</b>，全球总票房约 <b>159 亿元人民币</b>，跻身全球影史票房前五，是<b>亚洲首部票房破 150 亿的影片</b>；大陆观影人次超 3.24 亿。</p>
+    <p class="tags"><span class="k">适用话题</span>文化自信、守正创新、匠心、传统新生</p>
+    <div class="idea"><span class="k">思辨切口</span>它证明了「传统 IP 要活下去，必须敢改写」。<b>守正与创新的最佳样本</b>：内核（反抗命运、母子亲情）是古老的，表达（技术、叙事、幽默）是当代的。追问：为什么「我命由我不由天」能击中这个时代？——因为它回应了当代人对确定性与自我价值的焦虑。</div>
+  </div>
+
+  <div class="mt">
+    <div class="yr">2025 · 群众文化</div>
+    <h4>「苏超」：一记推进城市文化建设的「好球」</h4>
+    <p class="fact">2025 年江苏省城市足球联赛，历时 <b>176 天、85 场</b>，场均现场观众 <b>2.86 万</b>，累计超 <b>243 万</b>人次现场观赛；相关话题点击量达 <b>1041 亿次</b>；决赛 62329 名观众创中国业余足球赛事上座纪录。65% 的球员来自各行各业，80% 的观众不懂「越位」。</p>
+    <p class="tags"><span class="k">适用话题</span>群众文化、城市认同、体育精神、平凡与热爱</p>
+    <div class="idea"><span class="k">思辨切口</span><b>为什么「没有巨星、没有巨额赞助」的草根赛事能成为顶流？</b>因为它的价值不在竞技水平，而在「全民参与 + 城市荣誉」。这提示我们：<b>真正的流量来自真实的人的情感参与</b>，而非资本堆出来的热度。</div>
+  </div>
+
+  <div class="mt">
+    <div class="yr">2024–2025 · 文化输出</div>
+    <h4>《黑神话：悟空》与国潮崛起</h4>
+    <p class="fact">国产 3A 游戏《黑神话：悟空》全球出圈，把中国古典名著与顶尖技术结合，成为文化输出的样本之一。</p>
+    <p class="tags"><span class="k">适用话题</span>文化自信、创造性转化、技术赋能传统</p>
+    <div class="idea"><span class="k">思辨切口</span>传统不是包袱，而是<b>有待重新讲述的富矿</b>。关键在于：是「复述」还是「再创造」？</div>
+  </div>
+
+  <div class="shead"><span class="idx">§ 06.4</span><h2>拼搏与平凡</h2><span class="sub">STRIVE · ORDINARY</span></div>
+
+  <div class="mt">
+    <div class="yr">2026 · 冰雪荣光</div>
+    <h4>米兰-科尔蒂纳冬奥会：中国队创境外参赛最好成绩</h4>
+    <p class="fact">2026 年 2 月，中国队以 <b>5 金 4 银 6 铜、共 15 枚奖牌</b>收官，刷新境外参加冬奥会历史最好成绩，奖牌总数追平北京冬奥主场纪录。苏翊鸣夺得首金，谷爱凌收获 <b>1 金 2 银</b>并包揽女子 U 型场地技巧冠亚军。</p>
+    <p class="tags"><span class="k">适用话题</span>拼搏、突破、青年风采、坚持与调整</p>
+    <div class="idea"><span class="k">思辨切口</span><b>纪录是终点还是起点？</b>高光背后是谷爱凌曾遭遇重伤后的康复训练。可写：「所谓的『天才』，是把每一次挫败都变成下一次起跳的踏板。」</div>
+  </div>
+
+  <div class="mt">
+    <div class="yr">长期 · 平凡伟大</div>
+    <h4>平凡中的坚守：乡村燃灯教师叶连平、春节坚守岗位的快递小哥</h4>
+    <p class="fact">叶连平数十年如一日在乡村义务辅导学生，被称为「燃灯教师」；无数快递员、医护、环卫工人春节坚守岗位。</p>
+    <p class="tags"><span class="k">适用话题</span>平凡与伟大、坚守、奉献、微光成炬</p>
+    <div class="idea"><span class="k">思辨切口</span><b>平凡与伟大的分界，究竟在哪？</b>——不在岗位大小，而在<b>是否把一件小事做到了极致的坚持</b>。这正是一道标准的「概念辨析」题：先给「伟大」下定义，再论证平凡何以通向伟大。</div>
+  </div>
+
+  <div class="card accent">
+    <h4><span class="num">示范</span>一个案例的三层分析（以「苏超」为例）</h4>
+    <p style="margin:8px 0 4px"><b>第 1 层 · 事件</b>：一场省级业余足球赛，吸引了 243 万人次现场观赛。</p>
+    <p style="margin:0 0 4px"><b>第 2 层 · 归因</b>：它把「看比赛」升级为「参与赛事」——大屏喊话、城市对歌、文旅联动，观众从旁观者变成共创者。</p>
+    <p style="margin:0 0 4px"><b>第 3 层 · 本质</b>：文化活动的生命力不来自「精英供给」，而来自<b>普通人被真正看见、被允许参与</b>。群众的热情不是被制造的，而是被释放的。</p>
+    <p style="margin:0"><b>落到观点</b>：与其追问「如何制造爆款」，不如追问「如何让每一个人都能成为主角」。</p>
+  </div>
+
+</div>
+
+<!-- ══════════════ 07 语言库 ══════════════ -->
+<div class="page" id="p07">
+
+  <div class="act">
+    <span class="lab">本节动作</span>
+    <span class="txt">选<b>一条</b>句式，抄原文 → 遮住 → 用<b>自己本周的一个事例</b>仿写。<b>一篇作文里精心用 1 处就够</b>，用多了暴露套路。</span>
+  </div>
+
+  <div class="shead"><span class="idx">§ 07.1</span><h2>人民日报高分八大句式</h2><span class="sub">8 SYNTACTIC PATTERNS</span></div>
+
+  <div class="pat">
+    <span class="lb">句式一 · 双「因」强调</span>
+    <span class="body">因……而多彩，……因……而丰富。……，是推动……和……的重要动力。</span>
+    <span class="use"><b>出处</b>：「文明因交流而多彩，文明因互鉴而丰富。文明交流互鉴，是推动人类文明进步和世界和平发展的重要动力。」<br>
+    <b>示范</b>：青春因远大理想而多彩，青春因追逐理想而丰富。高远理想，是推动无数青年砥砺前行和奋斗拼搏的重要动力。</span>
+  </div>
+
+  <div class="pat">
+    <span class="lb">句式二 · 三「从……到……」排比</span>
+    <span class="body">从……到……，……日益丰富；从……到……，……不断拓展；从……到……，……成为一道道美丽风景。</span>
+    <span class="use"><b>出处</b>：青藏高原到东海之滨的万里长江生物多样性 / 荒原变林海的塞罕坝到沙土变良田的库布其 / 云南大象北上南归。<br>
+    <b>示范</b>：从工厂车间到田间地头，再到城市的大街小巷，时代对每一代青年有不同的召唤，但不变的关键词就是「奋斗」。</span>
+  </div>
+
+  <div class="pat">
+    <span class="lb">句式三 · 三喻体</span>
+    <span class="body">……，是……的「晴雨表」、……的「度量衡」、……的「风向标」。</span>
+    <span class="use"><b>出处</b>：「数据，是经济发展状况的『晴雨表』、评价工作成效的『度量衡』。」<br>
+    <b>示范</b>：金融是现代经济的核心，是经济发展的晴雨表、度量衡和风向标。</span>
+  </div>
+
+  <div class="pat">
+    <span class="lb">句式四 · 三「回忆起」+ 对偶升华</span>
+    <span class="body">回忆起……，回忆起……，回忆起……。精神的伟力，总能带来心灵的震撼；信仰的光芒，总能穿越时空的阻隔。</span>
+    <span class="use"><b>出处</b>：《追思先烈，致敬英雄》——黄继光、邱少云 / 长津湖、上甘岭 / 「忍饥受冻绝不退缩」的民族血性。<br>
+    <b>示范</b>：回忆起「竭能力于万一，救人民于涂炭」的家国情怀，回忆起「山河破碎风飘絮」的艰苦卓绝，回忆起「苟利国家生死以」的民族血性。</span>
+  </div>
+
+  <div class="pat">
+    <span class="lb">句式五 · 行而不辍</span>
+    <span class="body">行而不辍，则未来可期。只要我们一步一个脚印，做到……，就一定能推动……不断迈上新台阶，……也必将越来越……。</span>
+    <span class="use"><b>出处</b>：《以财税政策助力实现「双碳」目标》　<b>用途</b>：结尾展望，铿锵有力。</span>
+  </div>
+
+  <div class="pat">
+    <span class="lb">句式六 · 世界性问题</span>
+    <span class="body">……是世界性问题，通过……来……，是许多国家的共同选择。</span>
+    <span class="use"><b>出处</b>：「人口老龄化是世界性问题，通过医养结合来应对这一挑战，是许多国家的共同选择。」<br>
+    <b>用途</b>：把个人话题<b>拔高到人类视角</b>，格局立刻打开。</span>
+  </div>
+
+  <div class="pat">
+    <span class="lb">句式七 · 递进三连</span>
+    <span class="body">不仅属于……，也属于……，是激发……、增强……、凝聚……的重要源泉。</span>
+    <span class="use"><b>出处</b>：「文物不仅属于我们当代人，也属于子孙后代，是激发民族自豪感、增强文化自信、凝聚起爱国奋进力量的重要源泉。」</span>
+  </div>
+
+  <div class="pat">
+    <span class="lb">句式八 · 双排比「补钙 / 升级 / 提纯」</span>
+    <span class="body">坚持用……武装……头脑，用心用情传播……、传播……、传播……，帮助……在……上「补钙」、……上「升级」、……上「提纯」。</span>
+    <span class="use"><b>出处</b>：《铸牢军魂，为战育人》　<b>用途</b>：写人物精神（乡村教师、科研工作者）。</span>
+  </div>
+
+  <div class="shead" id="s072"><span class="idx">§ 07.2</span><h2>按位置的段落模板</h2><span class="sub">PARAGRAPH SCAFFOLDS</span></div>
+
+  <h3>开头四式</h3>
+  <div class="grid2">
+    <div class="card"><h4>概念界定式（最稳）</h4><p style="margin:0;font-size:14px">人们常以为 X 是……，但细究之，X 不是……，而是……。这一区分，是理解全题的起点。</p></div>
+    <div class="card"><h4>现象切入式</h4><p style="margin:0;font-size:14px">从具体现象或场景写起（一个细节、一组数据），自然引出核心问题。</p></div>
+    <div class="card"><h4>设问引思式</h4><p style="margin:0;font-size:14px">当……时，我们是否想过：……？问题的关键，或许不在于……，而在于……。</p></div>
+    <div class="card"><h4>引语生发式</h4><p style="margin:0;font-size:14px">引用材料或名言 → 拆解其关键词 → 说出自己的理解转向。</p></div>
+  </div>
+
+  <h3>过渡三式</h3>
+  <div class="grid3">
+    <div class="card"><h4>递进</h4><p style="margin:0;font-size:14px">问题的表层答案已明，可若继续追问，便会触到更深的一层……</p></div>
+    <div class="card"><h4>转折</h4><p style="margin:0;font-size:14px">然而，把这一判断放到现实中检验，情形却要复杂得多。</p></div>
+    <div class="card"><h4>换维</h4><p style="margin:0;font-size:14px">从个人视角转向社会视角，这一现象便呈现出另一副面孔。</p></div>
+  </div>
+
+  <h3>结尾三式</h3>
+  <div class="grid3">
+    <div class="card"><h4>价值排序式</h4><p style="margin:0;font-size:14px">当……与……冲突时，我们该以……为底线，以……为方向。</p></div>
+    <div class="card"><h4>升维收束式</h4><p style="margin:0;font-size:14px">这不仅是……的问题，更是一个关于……的时代命题。</p></div>
+    <div class="card"><h4>回扣回响式</h4><p style="margin:0;font-size:14px">回到开篇那个词，此刻它在我心里，已有了不同的重量。</p></div>
+  </div>
+
+  <div class="shead"><span class="idx">§ 07.3</span><h2>可查证金句</h2><span class="sub">QUOTES</span></div>
+  <div class="tw"><table>
+    <thead><tr><th style="width:54%">金句</th><th>适用主题</th></tr></thead>
+    <tbody>
+      <tr><td>历史波澜壮阔，镌刻下青年的名字；未来长空万里，期待着青年的进发。<span class="src">（人民日报）</span></td><td>青年志向、先锋力量</td></tr>
+      <tr><td>文明因交流而多彩，文明因互鉴而丰富。<span class="src">（人民日报）</span></td><td>文化自信、开放包容</td></tr>
+      <tr><td>道阻且长，行则将至；行而不辍，未来可期。<span class="src">（人民日报）</span></td><td>坚持、奋斗、追梦</td></tr>
+      <tr><td>人不负青山，青山定不负人。<span class="src">（人民日报）</span></td><td>生态、付出与回报</td></tr>
+      <tr><td>崇尚英雄才会产生英雄，争做英雄才能英雄辈出。<span class="src">（人民日报）</span></td><td>榜样、民族精神</td></tr>
+      <tr><td>文艺是民族生命力的最高表现。<span class="src">（朱光潜）</span></td><td>文化、文学与民族</td></tr>
+      <tr><td>日月不失其体，故蔽而复明；江汉不失其源，故穷而复通。<span class="src">（《风俗通义》）</span></td><td>守本固源、挫折与重生</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note warn"><b>引用纪律：</b>务必核对出处与原文，<b>宁少勿错</b>。记不清出处的句子，不如不用——阅卷老师对错引的容忍度是零。</div>
+
+</div>
+
+<!-- ══════════════ 08 真题库 ══════════════ -->
+<div class="page" id="p08">
+
+  <div class="act">
+    <span class="lab">本节动作</span>
+    <span class="txt">挑一道真题，<b>只写提纲</b>：概念定义 → 三层追问 → 反面 → 条件 → 方案，并标注你用哪个结构模型。提纲过关再动笔，能省一半时间。</span>
+  </div>
+
+  <div class="shead"><span class="idx">§ 08.1</span><h2>2026 年真题</h2><span class="sub">2026 EXAM</span></div>
+
+  <div class="qz"><span class="k">全国 I 卷</span>词语是表达思想情感的载体，也是展现社会生活变化的窗口。当前，世界之变、时代之变、历史之变正以前所未有的方式展开。青年是常为新的，在你的成长过程中，你对哪一个词语的理解发生了变化？这变化有你成长的印记，对你有特殊的意义……</div>
+  <div class="qz"><span class="k">全国 II 卷</span>「日月不失其体，故蔽而复明；江汉不失其源，故穷而复通。」<span class="src">——《风俗通义》</span>在个人成长、社会发展乃至文明演进中，总会出现困顿、挫折，甚至会有风高浪急、惊涛骇浪的考验。然而，日月虽有被遮蔽之时，只要本体未失，终能重放光明；江河即使遭遇险阻，只要源头不竭，终能贯通入海。</div>
+  <div class="qz"><span class="k">北京卷 · 作文 50 分</span>（1）以「做规划与下功夫」为题，写一篇议论文。（2）以「含英咀华」为题，写一篇记叙文。<span class="src">另有微写作 3 题（劳动实践建议 /「AI 与幸福晚年」宣传语 /「因为向往」小诗或抒情文字）</span></div>
+  <div class="qz"><span class="k">天津卷</span>画家把颜料放入调（tiáo）色盘，精准调整比例，绘就美好画卷；南水北调（diào）工程合理调动资源，使自然更好地造福人类。调，一字双音，既有顺势而为的选择，又有不拘一格的创造。</div>
+  <div class="qz"><span class="k">上海卷</span>每个人都有对世界的想象。科技改造世界时，也改造着我们的想象，对此你有怎样的认识和思考？</div>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:12%">试卷</th><th style="width:22%">核心矛盾</th><th>思辨切口</th></tr></thead>
+    <tbody>
+      <tr><td><b>全国 I</b></td><td>个人成长 ↔ 时代变迁</td><td>必须「从一个词出发」，且要写出<b>理解的变化</b>。<b>难点在第一关：选词</b>——要与个人经历真实绑定，不能泛泛而谈。可参照「坚持」从「死磕」到「校准」的转变。</td></tr>
+      <tr><td><b>全国 II</b></td><td>本体 / 源头「不变」 ↔ 境遇「万变」</td><td>材料只是<b>起点不是终点</b>。忌堆砌「守本固源」的名人事例。要落到「个人成长 / 社会发展 / 文明演进」中<b>一个具体领域</b>，探讨「守什么——怎么守——守到什么程度」。</td></tr>
+      <tr><td><b>北京</b></td><td>规划（方向） ↔ 下功夫（执行）</td><td>二者是否对立？<b>良好的规划若无执行是空想，埋头苦干若无规划是蛮干。</b>可答：规划为功夫定向，功夫为规划兑现。</td></tr>
+      <tr><td><b>天津</b></td><td>顺势而为 ↔ 不拘一格</td><td>题干末句已点明方向。<b>「调」的智慧在于：既尊重规律，又不被规律束缚。</b>可写：真正的创造，是对规律的深刻理解之后的自由。</td></tr>
+      <tr><td><b>上海</b></td><td>科技改造世界 ↔ 科技改造想象</td><td>注意「<b>也</b>」字：双重改造，重心落在后半句。<b>切忌写成科技利弊泛论</b>，要聚焦「想象」这一对象。可辩：科技究竟<b>拓宽了</b>想象，还是<b>规训了</b>想象？</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="shead"><span class="idx">§ 08.2</span><h2>2025 年真题</h2><span class="sub">2025 EXAM</span></div>
+
+  <div class="qz"><span class="k">全国一卷 · 民族魂</span>他想要给孩子们唱上一段，可是心里直翻腾，开不了口。<span class="src">——老舍《鼓书艺人》</span>假如我是一只鸟，我也应该用嘶哑的喉咙歌唱。<span class="src">——艾青《我爱这土地》</span>我要以带血的手和你们一一拥抱，因为一个民族已经起来。<span class="src">——穆旦《赞美》</span></div>
+  <div class="qz"><span class="k">全国二卷</span>「昨夜闲潭梦落花」「我欲因之梦吴越」「铁马冰河入梦来」……梦往往以一种独特的方式呈现我们的感受和期冀，为我们打开更浩瀚的天空。我们也常常向别人讲述自己的梦，用文字记录自己的梦，以行动实现自己的梦。如果有一天，我们能够将梦赠予他人……</div>
+  <div class="qz"><span class="k">北京卷 · 议论文</span>运动员在中长跑时会出现「极点」反应：呼吸艰难，四肢乏力。但通过调整节奏、激发斗志，越过极点后，身体会重获活力，奔跑会进入新阶段。这样的现象被称为「第二次呼吸」。—— 请以「由『第二次呼吸』说开去」为题写作。</div>
+  <div class="qz"><span class="k">上海卷</span>有学者用「专」「转」「传」概括当下三类文章：「专」指专业文章；「转」指被转发的通俗文章；「传」指获得广泛传播的佳作，甚至是传世文章。由「专」到「传」，必定要经过「转」吗？</div>
+  <div class="qz"><span class="k">天津卷</span>车轮的辐条一根一根，向心辏集，连接起居于中心的轮毂。辐集而轮运，劲直的辐条汇聚于轮毂，车轮支撑起载重的车辆，滚滚向前。</div>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:12%">试卷</th><th style="width:22%">核心矛盾</th><th>思辨切口</th></tr></thead>
+    <tbody>
+      <tr><td><b>全国一卷</b></td><td>沉默 ↔ 呐喊</td><td>三则材料构成递进：<b>欲言（压抑）→ 嘶哑歌唱（坚持）→ 带血拥抱（觉醒）</b>。可写「民族魂」如何在绝境中一次次重新「发声」。</td></tr>
+      <tr><td><b>全国二卷</b></td><td>个人的梦 ↔ 给予他人</td><td>梦能被「赠予」吗？<b>「赠予」是隐喻还是实指</b>——把梦写下来、讲出来，它就不再只属于「我」。典型的<b>概念辨析</b>题。</td></tr>
+      <tr><td><b>北京卷</b></td><td>极点（困境） ↔ 第二次呼吸</td><td>关键在于「越过」——<b>不是熬过去，而是调整节奏、激发斗志</b>。可写：突破从不是硬扛，而是<b>主动改变方式</b>。</td></tr>
+      <tr><td><b>上海卷</b></td><td>「专」→「转」→「传」</td><td><b>题目自带的这个反问，正是思辨的入口</b>。可答：专业性是它被理解的基础，通俗性往往是它被传播的阶梯；但「传世」靠的是思想本身的穿透力，未必依赖「转」。</td></tr>
+      <tr><td><b>天津卷</b></td><td>个体（辐条） ↔ 整体（轮毂）</td><td>辐条「劲直」才能聚力——<b>个体越是挺直、越是各异，整体才越稳固</b>。可写集体与个体并非牺牲关系。</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="shead"><span class="idx">§ 08.3</span><h2>范文示例与方法对照</h2><span class="sub">MODEL ESSAY</span></div>
+  <div class="essay">
+    <div class="ttl">坚持，在边界处转身</div>
+    <p>曾几何时，坚持在我心中是一尊不容亵渎的雕像。它意味着咬牙死磕，意味着一条路走到黑，意味着把「放弃」二字从人生的字典里彻底撕去。直到年岁渐长，我才慢慢意识到：那尊雕像可能站错了位置。</p>
+    <p>我渐渐发现，很多争论之所以无解，是因为双方连词的含义都没对齐。<b>坚持不是固执，不是消耗，更不是自我感动式的苦行。</b>它与「韧性」相近，与「执迷」相斥 —— 前者以目标是否仍值得追求为判断依据，后者以投入的时长作为唯一尺度。三年反思下来，我终于承认：坚持只在方向正确、代价可承受、且有反馈信号时才是美德；一旦方向错了，越坚持，离目标越远。</p>
+    <p>高一那年，我曾为一道物理竞赛题耗去整整一个周末。草稿纸铺满桌面，公式反复推演，答案却始终遥不可及。父亲路过书房，看了一眼满桌的演算，只说了一句：「你是在解决问题，还是在跟问题较劲？」我当时不服，后来才渐渐读懂这句话的锋利。<b>有些路走不通，不是因为你不够用力，而是因为方向本身就错了。</b></p>
+    <p>可如果只停在「我不够努力」这一层，就永远问不到真正的问题：我到底在焦虑什么？表面看，我的坚持是勤奋；往深里想，它更像一种心理补偿 —— 用「耗时间」替代「找方法」，因为承认方法不对，比承认不够努力更令人恐惧。当评价标准趋同、优质资源稀缺时，「咬牙硬撑」便成了最容易被看见、也最容易被表扬的姿态。</p>
+    <p>当然，也不能因此否定恒心的价值。司马迁若无十余载笔耕不辍，便无《史记》之绝唱。但若把「坚持」绝对化，它便会滑向偏执。司马迁的坚持之所以成立，恰恰因为他把个人屈辱转化为历史责任，在困境中调整了叙事视角，而非困守仇恨。方向可以坚定，路径却可以灵活。</p>
+    <p>重要的不是每天坐多久，而是每天离目标近了多少。此刻的「变」，恰恰是更深层的「不变」—— 对成长本身的坚持，从未动摇。</p>
+    <p class="ni"><b>真正的坚持，不是不撞南墙不回头，而是在撞上南墙之前，先问一句：这面墙后面，是否真的有我想要抵达的地方？</b>若答案是肯定的，换一条路继续走；若答案是否定的，转身本身就是一种更深刻的坚持。</p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th style="width:20%">方法</th><th style="width:14%">位置</th><th>操作</th></tr></thead>
+    <tbody>
+      <tr><td><b>概念辨析</b></td><td>第 2 段</td><td>「不是固执……只在方向正确时才是美德」——四步定义法</td></tr>
+      <tr><td><b>追问链</b></td><td>第 4 段</td><td>现象 → 心理补偿 → 结构原因（评价趋同）→ 本质（路径焦虑）</td></tr>
+      <tr><td><b>让步与条件</b></td><td>第 5 段</td><td>「也不能因此否定」→「但若绝对化」→ 司马迁例后必析</td></tr>
+      <tr><td><b>Toulmin 担保</b></td><td>第 5 段</td><td>「之所以成立，是因为他把屈辱转化为责任」——补上例子与结论之间的桥</td></tr>
+      <tr><td><b>化方法于语言</b></td><td>全篇</td><td>全文未出现一个方法名称，追问的动作却清晰可见</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">
+    <b>说明：</b>本篇依据 2026 全国 I 卷思路撰写，用作方法演示。
+    其余各卷提供<b>思辨切口与立意方向</b>，不附整篇范文——网上流传的「满分作文」多为培训机构仿写，采用需谨慎。
+  </div>
+
+</div>
+
+<!-- ══════════════ 09 评论拆解 ══════════════ -->
+<div class="page" id="p09">
+
+  <div class="act">
+    <span class="lab">本节动作</span>
+    <span class="txt">找一篇《人民时评》或新华时评，按下面<b>六步</b>填一张表。摘抄时必须标注：<b>「这句在做什么逻辑动作」</b>——这是大部分人抄了也没用的原因。</span>
+  </div>
+
+  <div class="note">
+    <b>为什么值得拆：</b>《人民日报》《求是》等评论逻辑严谨、语言凝练、归因深入。
+    <b>每月精拆 2–3 篇，比刷十篇范文有用。</b>
+  </div>
+
+  <div class="shead"><span class="idx">§ 09.1</span><h2>拆解六步框架</h2><span class="sub">SIX-STEP TEARDOWN</span></div>
+  <div class="flow">
+    <div class="step"><span class="n">01</span><span class="t">看标题</span><span class="d">观点题还是<br>话题题</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">02</span><span class="t">看引入</span><span class="d">从现象、数据<br>还是场景</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">03</span><span class="t">看界定</span><span class="d">核心词<br>如何定义</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">04</span><span class="t">看归因</span><span class="d">分了几<br>个层次</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">05</span><span class="t">看辩证</span><span class="d">扬在哪<br>转在哪</span></div>
+    <div class="arw">→</div>
+    <div class="step hot"><span class="n">06</span><span class="t">看收束</span><span class="d">如何回扣<br>升维</span></div>
+  </div>
+
+  <div class="shead"><span class="idx">§ 09.2</span><h2>实例拆解</h2><span class="sub">CASE STUDY</span></div>
+  <div class="tw"><table>
+    <thead><tr><th style="width:12%">环节</th><th style="width:44%">原文手法</th><th>可迁移的动作</th></tr></thead>
+    <tbody>
+      <tr><td colspan="3" style="background:#f6f3ec"><b>《求是》2025/22 ·「苏超」：推进城市文化建设的一记「好球」》</b></td></tr>
+      <tr><td><b>标题</b></td><td>「一记『好球』」——用体育隐喻拎出全文主旨</td><td>拟题可借<b>本体概念</b>作喻，既切题又有画面感</td></tr>
+      <tr><td><b>引入</b></td><td>「11 月 1 日晚，南京奥体中心体育场比过年还热闹」</td><td><b>用具体场景开头</b>，比「近年来……」有温度得多</td></tr>
+      <tr><td><b>界定</b></td><td>「文化是城市的灵魂」——先立一个判断，再展开</td><td>开头先给核心概念<b>一个明确断言</b></td></tr>
+      <tr><td><b>归因</b></td><td>「不仅是竞技的舞台，也是文化交流的舞台，<b>更是</b>主办城市展示实力的窗口」——三层递进</td><td>用「不仅……也……更是……」制造<b>层次感</b></td></tr>
+      <tr><td><b>数据</b></td><td>176 天、85 场、场均 2.86 万、1041 亿次点击</td><td>关键处用<b>精准数字</b>支撑，比空泛形容词有力</td></tr>
+      <tr><td><b>辩证</b></td><td>不回避问题：一些城市重硬件轻软件，文化容易成为悬浮物</td><td>高分文章要<b>敢于指出另一面</b>，不写成宣传稿</td></tr>
+      <tr><td><b>收束</b></td><td>「可见的是地区生产总值的增长，<b>可感的是</b>精神的拔节生长」</td><td>用「可见……可感……」作对偶收尾，<b>由实入虚</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="shead"><span class="idx">§ 09.3</span><h2>四个可复用技法</h2><span class="sub">REUSABLE TECHNIQUES</span></div>
+  <div class="grid2">
+    <div class="card accent"><h4><span class="num">01</span>场景式开头</h4><p style="margin:0 0 6px;font-size:14px">不写「随着社会发展」，而写某一个瞬间、一个画面、一个数字。</p><p class="src" style="margin:0">范例：「11 月 1 日晚，南京奥体中心体育场比过年还热闹。」</p></div>
+    <div class="card accent"><h4><span class="num">02</span>三层归因</h4><p style="margin:0 0 6px;font-size:14px">把一个现象拆成「表层—中层—深层」，用递进关联词串起。</p><p class="src" style="margin:0">句式：不仅……，也……，更是……。</p></div>
+    <div class="card accent"><h4><span class="num">03</span>排比抒情</h4><p style="margin:0 0 6px;font-size:14px">连用三个「回忆起……」，把情感推向高潮，再对偶收束。</p><p class="src" style="margin:0">句式：回忆起……，回忆起……，回忆起……。精神的伟力，总能……；信仰的光芒，总能……。</p></div>
+    <div class="card accent"><h4><span class="num">04</span>由实入虚的收尾</h4><p style="margin:0 0 6px;font-size:14px">从可见的、具体的东西，过渡到可感的、精神的东西。</p><p class="src" style="margin:0">句式：可见的是……，可感的是……。</p></div>
+  </div>
+
+</div>
+
+<!-- ══════════════ 10 训练与自查 ══════════════ -->
+<div class="page" id="p10">
+
+  <div class="act">
+    <span class="lab">本节动作</span>
+    <span class="txt">把下表抄进你的日程表。<b>关键不是每天都写整篇</b>——而是每天有一个 15 分钟就能完成的<b>单点训练</b>。</span>
+  </div>
+
+  <div class="shead"><span class="idx">§ 10.1</span><h2>每周训练表</h2><span class="sub">WEEKLY PLAN</span></div>
+  <div class="tw"><table>
+    <thead><tr><th style="width:10%">日程</th><th style="width:20%">任务</th><th>操作</th></tr></thead>
+    <tbody>
+      <tr><td><b>周一</b></td><td>概念卡</td><td>四步定义法写 100 字。<b>题库</b>：自由/放纵、创新/标新立异、坚持/固执、平凡/平庸、传承/复制、担当/盲从</td></tr>
+      <tr><td><b>周二</b></td><td>追问链</td><td>选一个现象跑一遍 <b>§05.3 的 7 步追问链</b>，第 6 步「本质」须写成<b>可迁移的判断</b>，而不是一句感慨</td></tr>
+      <tr><td><b>周三</b></td><td>谬误排查</td><td>拿上周作文，用 <b>14 条谬误清单</b>逐条自查，标出问题句</td></tr>
+      <tr><td><b>周四</b></td><td>句式仿写</td><td>抄《人民日报》一段，遮住原文仿写；重点练八大句式中的 1 条</td></tr>
+      <tr><td><b>周五</b></td><td>提纲</td><td>一道真题，列「概念—原因—反面—条件—方案」，并标注<b>用哪个结构模型</b></td></tr>
+      <tr><td><b>周末</b></td><td>成文 + 批改</td><td>完整写一篇；批改时只问两个问题：<b>逻辑有没有推进？担保有没有补上？</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="shead"><span class="idx">§ 10.2</span><h2>如果按学期推进：16 周方案</h2><span class="sub">SEMESTER PLAN</span></div>
+  <div class="note">
+    与 §10.1 的周计划二选一。<b>差别在于三个「节点周」</b>：第 1 周摸底定级、第 9 周对比、第 16 周画曲线。
+    <span class="kw">◇</span> 本表为本手册自拟。
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th style="width:7%">周</th><th style="width:17%">主题</th><th style="width:38%">主要活动</th><th>产出</th></tr></thead>
+    <tbody>
+      <tr><td><b>1</b></td><td>摸底</td><td><b>判级</b>：按 §02.5 三步法给一篇旧作文定 L 级，填 §01.2 量表</td><td>个人诊断表</td></tr>
+      <tr><td><b>2</b></td><td>概念辨析</td><td>《乡土中国》概念卡 ×3（差序格局／礼治秩序／无讼）</td><td>概念卡 3 张</td></tr>
+      <tr><td><b>3</b></td><td>论点与焦点</td><td>给 5 段材料，各写一句「作者要证明什么」</td><td>焦点句 5 则</td></tr>
+      <tr><td><b>4</b></td><td>谬误识别</td><td>「逻辑的力量」活动一：谬误标记卡（圈出隐含前提）</td><td>标记稿</td></tr>
+      <tr style="background:#fdf6f4"><td><b>5</b></td><td><b>担保专项</b></td><td>Toulmin 标注：给旧作文补写 W 句　<span class="kw">★ 全学期最关键的一周</span></td><td>标注稿</td></tr>
+      <tr><td><b>6</b></td><td>推理形式</td><td>同素材分别用反证法／排除法／归谬法各写一段</td><td>三段对比</td></tr>
+      <tr style="background:#f6f3ec"><td><b>7</b></td><td><b>辩论一</b></td><td>辩题必须是<b>真问题</b>（真存在两种都成立的立场）</td><td>辩论评分表</td></tr>
+      <tr><td><b>8</b></td><td>完整作文一</td><td>命题作文，<b>必须附 Toulmin 标注页</b></td><td>作文＋标注页</td></tr>
+      <tr style="background:#fdf6f4"><td><b>9</b></td><td><b>反思对比</b></td><td>§10.5 反思三问；<b>与第 1 周诊断逐项对比</b></td><td>级别变化对照</td></tr>
+      <tr><td><b>10</b></td><td>限定与让步</td><td>「承认—限定—反驳」三句仿写 ×5</td><td>仿写 5 则</td></tr>
+      <tr><td><b>11</b></td><td>虚拟论敌</td><td>写最强反方论证（≥200 字），再写驳论</td><td>反方稿</td></tr>
+      <tr style="background:#f6f3ec"><td><b>12</b></td><td><b>辩论二</b></td><td>辩题换成<b>价值冲突类</b>（如效率与公平）</td><td>辩论评分表</td></tr>
+      <tr><td><b>13</b></td><td>驳论文</td><td>条理清楚／有破有立／有理有据</td><td>驳论文 1 篇</td></tr>
+      <tr><td><b>14</b></td><td>事实与观点分离</td><td>看图写「只含可观察事实」的 200 字，<b>不夹带观点</b></td><td>客观描述稿</td></tr>
+      <tr><td><b>15</b></td><td>迁移与结尾</td><td>训练「迁移句」：这个原则在＿＿情境下同样成立，因为＿＿</td><td>迁移句集</td></tr>
+      <tr style="background:#f6f3ec"><td><b>16</b></td><td><b>辩论三</b>＋总结</td><td>辩论；画个人 L 级变化曲线</td><td>全学期档案</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note warn">
+    <b>第 1 周与第 9 周的对比是这套方案的成败关键。</b>如果第 9 周仍全在 L2，<b>问题在训练动作而不在学生</b>——应回到第 5 周的担保专项重做，而不是加练整篇作文。
+    <br><b>辩论三条纪律：</b>① 胜方 ≠ 思辨优胜，训练的是论证不是嗓门；② 辩题必须是真问题，否则练出「表演式辩证」；③ <b>辩完必须书面化</b>，口头辩过不落笔，思考不会迁移到作文。
+  </div>
+
+  <div class="shead"><span class="idx">§ 10.3</span><h2>素材库建设法：不背素材，建素材卡</h2><span class="sub">MATERIAL CARDS</span></div>
+  <div class="card accent">
+    <h4><span class="num">→</span>一张卡 = 一个素材，四栏固定格式</h4>
+    <p style="margin:8px 0 6px;font-size:14.5px">
+      <b>① 事件</b>：一句话说清发生了什么（含关键数字）<br>
+      <b>② 适用话题</b>：可挂靠的 3–4 个主题<br>
+      <b>③ 思辨切口</b>：这个素材能引出什么<b>问题</b>？（最重要）<br>
+      <b>④ 反例或边界</b>：它有没有例外？会不会被反驳？
+    </p>
+    <p class="src" style="margin:10px 0 0"><b>目标</b>：积累 20 张卡，覆盖「青年、科技、文化、平凡、拼搏、传承」六大主题，考场上随手可调。<b>第④栏是分水岭</b>——多数人只填前两栏，所以素材一到手就用不上。</p>
+  </div>
+
+  <div class="shead"><span class="idx">§ 10.4</span><h2>一篇作文的完整流程（45 分钟）</h2><span class="sub">WRITING FLOW</span></div>
+  <div class="flow">
+    <div class="step"><span class="n">0–5′</span><span class="t">审题</span><span class="d">圈核心词<br>找矛盾</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">5–10′</span><span class="t">立意</span><span class="d">给概念<br>下定义</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">10–15′</span><span class="t">列纲</span><span class="d">选结构<br>补担保</span></div>
+    <div class="arw">→</div>
+    <div class="step"><span class="n">15–40′</span><span class="t">行文</span><span class="d">例后必析<br>不贴标签</span></div>
+    <div class="arw">→</div>
+    <div class="step hot"><span class="n">40–45′</span><span class="t">自查</span><span class="d">谬误清单<br>回扣题目</span></div>
+  </div>
+
+  <div class="shead"><span class="idx">§ 10.5</span><h2>写作后反思（课标规定的目标行为）</h2><span class="sub">REFLECTION</span></div>
+  <div class="note">
+    课标课程目标第 6 条写的是「<b>自觉分析和反思自己的语文实践活动经验</b>」——<b>反思不是教学技巧，是课程标准本身要求的行为</b>。
+    每篇作文后留 5 分钟，写在作文末尾单独一页。
+  </div>
+  <ol class="q">
+    <li><b>这篇文章的中心主张，我能用一句话复述吗？</b>复述出来的是不是我真正想说的？</li>
+    <li><b>我写下的三个依据，分别依赖什么假设？</b>（把 §02.4 的 W 那一栏补完）</li>
+    <li><b>上一篇判级给了什么级别？这一篇比上一篇多了哪一级的哪个动作？</b></li>
+  </ol>
+  <div class="note ok">
+    <b>第 3 问是关键。</b>只写「你这次有进步」等于没写——反馈必须<b>指明「下一次改哪一句」</b>。
+    你要能看到自己从 L2 到 L3 的<b>具体哪一步跨过去了</b>。
+  </div>
+
+  <div class="shead"><span class="idx">§ 10.6</span><h2>交卷前的最终自查</h2><span class="sub">FINAL CHECK</span></div>
+  <ul class="ck">
+    <li>核心概念<b>定义清楚</b>了吗？全文含义一致吗？</li>
+    <li>每个例子后面，都跟了「<b>这说明……因为……</b>」吗？</li>
+    <li>例子与论点之间的<b>担保</b>补上了吗？</li>
+    <li>分论点之间是<b>递进</b>，还是只是并列？</li>
+    <li>有没有一处「<b>都 / 必然 / 一定</b>」需要改成限定词？</li>
+    <li>方法名称有没有被<b>写进正文</b>（贴标签）？</li>
+    <li>每一段都<b>回扣题目</b>的核心问号了吗？</li>
+    <li>读完这段，读者知道你<b>到底主张什么</b>吗？</li>
+  </ul>
+
+  <div class="act" style="margin-top:26px">
+    <span class="lab">一句话</span>
+    <span class="txt">所有方法、模型、句式，最终都服务于同一件事——<b>在复杂中把道理说透，而不是把观点说糊。</b>工具越用越活，切忌变成新的八股。</span>
+  </div>
+
+</div>
+
+<footer>
+  <b>议论文思辨性训练 · 系统版</b>　｜　配套文件：B5 打印核心版、彩色交互版、DeepSeek 原始笔记、<b>思辨性教学研究笔记.md</b>（完整版，1.8 万字）<br><br>
+  <b>引用与自拟内容的边界（重要）</b><br>
+  §02.1 课标条文：转录自第三方全文页，<b>未与教育部官方附件 PDF 逐页核对</b>（⚠），用于正式出版前须复核。<br>
+  §02.3 高考评分标准：<b>教育部从未公开发布官方文本</b>，本章依据两个独立流传版本（2018 / 2026）互证，措辞有差异，不具官方效力（⚠）。<br>
+  §02.2 必修上册第六单元篇目：已对照统编电子课本目录与 2019 年教育部教材目录核对一致。§02.2「逻辑的力量」单元<b>内部编排细节</b>为二手转载，未与纸质教材核对（⚠）。<br>
+  §02.4 Toulmin 六要素、§02.5 Paul &amp; Elder 七项智性标准：学术原著（○）。§02.2「例子不能自行证明观点」引自黄桂斌《是知津矣》（《中华读书报》2018）（☆）。<br>
+  <b>自拟部分（◇，请勿引为他人成果）</b>：§01.2 四维能力量表　§02.5 L1–L5 的分级描述、判级三步法、双维度打分　§02.5 三条底线与「何时不该教辩证」　§10.2 十六周方案　§10.5 反思三问　§07 按位置的段落模板<br><br>
+  <b>已排除的三处常见错引</b>：统编必修无「走近鲁迅」单元、无「追求光明」单元、「当代文化参与」非统编必修单元名（见 §02.2）。<br><br>
+  <b>其他数据来源</b>：§06 素材数据——中国科学院／新华网 2025 年科技成果盘点、中国奥委会米兰冬奥综述、维基百科《哪吒之魔童闹海》。§08 真题题干——新华网／人民网／中国日报公开报道。§09.2 案例拆解——《求是》2025/22。时事数字以官方发布为准。<br>
+  <span class="src">编制日期：2026-10-06</span>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var btns=document.querySelectorAll('nav button'), pages=document.querySelectorAll('.page');
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      btns.forEach(function(x){x.classList.remove('on')});
+      pages.forEach(function(p){p.classList.remove('on')});
+      b.classList.add('on');
+      document.getElementById(b.dataset.p).classList.add('on');
+      window.scrollTo(0,0);
+    });
+  });
+
+  /* 跨模块跳转：各 .page 默认 display:none，裸锚点点了不会显示目标页，
+     故须先触发对应导航按钮切页，再滚动到具体小节。 */
+  function go(pid,sid){
+    var b=document.querySelector('nav button[data-p="'+pid+'"]');
+    if(b) b.click();
+    var el=document.getElementById(sid);
+    if(el) setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'start'});},40);
+  }
+  document.querySelectorAll('a.jmp').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var m=/^#(p\d\d)(?:-(s\d+))?$/.exec(a.getAttribute('href')||'');
+      if(!m) return;
+      go(m[1], m[2]||'');
+    });
+  });
+})();
+</script>
+</body>
+</html>

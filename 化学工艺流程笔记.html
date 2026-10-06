@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>化工工艺流程 · 笔记整理</title>
+<style>
+  :root{
+    --ink:#1f2933;
+    --sub:#5b6675;
+    --line:#e2e8f0;
+    --brand:#2f6fed;
+    --brand-soft:#eaf1ff;
+    --green:#0f9d58;
+    --green-soft:#e8f7ef;
+    --amber:#d98a00;
+    --amber-soft:#fff5e2;
+    --red:#d64545;
+    --red-soft:#fdecec;
+    --purple:#7a52cc;
+    --purple-soft:#f1ecff;
+    --teal:#0e8a8a;
+    --teal-soft:#e4f6f6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#eef1f6;
+    color:var(--ink);
+    font-family:"Noto Sans SC","Microsoft YaHei","PingFang SC","Hiragino Sans GB",system-ui,sans-serif;
+    line-height:1.75;
+    font-size:16px;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:26px 18px 70px;}
+
+  /* 顶部标题 */
+  header.hero{
+    background:linear-gradient(135deg,#2f6fed 0%,#5b8def 55%,#7a52cc 100%);
+    color:#fff;
+    border-radius:18px;
+    padding:26px 30px;
+    box-shadow:0 10px 26px rgba(47,111,237,.28);
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute;right:-40px;top:-40px;width:180px;height:180px;
+    background:rgba(255,255,255,.12);border-radius:50%;
+  }
+  header.hero h1{margin:0 0 6px;font-size:26px;letter-spacing:1px;}
+  header.hero p{margin:0;opacity:.92;font-size:14px;}
+  .hero-actions{margin-top:14px;}
+  .btn{
+    display:inline-block;background:rgba(255,255,255,.18);color:#fff;
+    border:1px solid rgba(255,255,255,.5);border-radius:9px;
+    padding:6px 14px;font-size:13px;cursor:pointer;transition:.2s;
+  }
+  .btn:hover{background:rgba(255,255,255,.32);}
+
+  /* 标签页 */
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 16px;}
+  .tab{
+    border:1px solid var(--line);background:#fff;color:var(--sub);
+    padding:9px 16px;border-radius:11px;cursor:pointer;font-size:15px;
+    font-weight:600;transition:.18s;user-select:none;
+  }
+  .tab:hover{border-color:#bcd0f7;color:var(--brand);}
+  .tab.active{
+    background:var(--brand);border-color:var(--brand);color:#fff;
+    box-shadow:0 6px 14px rgba(47,111,237,.28);
+  }
+  .panel{display:none;animation:fade .28s ease;}
+  .panel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  /* 卡片 */
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(31,41,51,.04);
+  }
+  .card > h2{
+    margin:0 0 12px;font-size:18px;display:flex;align-items:center;gap:9px;
+    padding-bottom:9px;border-bottom:2px dashed var(--line);
+  }
+  .card > h2 .dot{width:10px;height:10px;border-radius:50%;background:var(--brand);flex:0 0 auto;}
+  h3.sec{
+    font-size:16px;margin:16px 0 8px;color:var(--brand);
+    display:flex;align-items:center;gap:8px;
+  }
+  h3.sec .badge{
+    background:var(--brand-soft);color:var(--brand);
+    font-size:13px;padding:1px 9px;border-radius:7px;font-weight:700;
+  }
+  h3.sec.green{color:var(--green);} h3.sec.green .badge{background:var(--green-soft);color:var(--green);}
+  h3.sec.amber{color:var(--amber);} h3.sec.amber .badge{background:var(--amber-soft);color:var(--amber);}
+  h3.sec.purple{color:var(--purple);} h3.sec.purple .badge{background:var(--purple-soft);color:var(--purple);}
+  h3.sec.teal{color:var(--teal);} h3.sec.teal .badge{background:var(--teal-soft);color:var(--teal);}
+
+  /* 列表 */
+  ul.clean{list-style:none;padding-left:0;margin:6px 0;}
+  ul.clean > li{position:relative;padding:3px 0 3px 24px;}
+  ul.clean > li::before{
+    content:"›";position:absolute;left:6px;top:2px;color:var(--brand);font-weight:800;
+  }
+  ul.num{list-style:none;padding-left:0;margin:6px 0;counter-reset:n;}
+  ul.num > li{position:relative;padding:3px 0 3px 30px;}
+  ul.num > li::before{
+    counter-increment:n;content:counter(n);
+    position:absolute;left:0;top:5px;width:20px;height:20px;
+    background:var(--brand-soft);color:var(--brand);border-radius:6px;
+    font-size:12px;font-weight:700;text-align:center;line-height:20px;
+  }
+  .key{color:var(--red);font-weight:700;}
+  .hl{background:linear-gradient(transparent 62%,#ffe58a 62%);font-weight:600;}
+  .muted{color:var(--sub);font-size:14px;}
+
+  /* 流程图 */
+  .flow{
+    display:flex;align-items:center;flex-wrap:wrap;gap:0;
+    background:#f8fafc;border:1px dashed #cdd8e6;border-radius:12px;
+    padding:16px 14px;margin:8px 0 4px;
+  }
+  .flow .node{
+    background:#fff;border:1.5px solid var(--brand);color:var(--brand);
+    border-radius:10px;padding:8px 14px;font-weight:700;font-size:14px;white-space:nowrap;
+  }
+  .flow .node.alt{border-color:var(--green);color:var(--green);}
+  .flow .node.end{border-color:var(--red);color:var(--red);}
+  .flow .arrow{
+    display:flex;flex-direction:column;align-items:center;color:var(--sub);
+    font-size:12px;padding:0 6px;min-width:64px;
+  }
+  .flow .arrow .label{
+    background:var(--amber-soft);color:var(--amber);border-radius:6px;
+    padding:1px 6px;font-weight:700;font-size:12px;margin-bottom:2px;white-space:nowrap;
+  }
+  .flow .arrow .tri{color:var(--sub);font-size:14px;line-height:1;}
+
+  /* 表格 */
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:15px;}
+  th,td{border:1px solid var(--line);padding:8px 12px;text-align:center;}
+  th{background:#f2f6ff;color:var(--brand);font-weight:700;}
+  td.left{text-align:left;}
+  tr:nth-child(even) td{background:#fafbfd;}
+
+  /* 提示框 */
+  .note{
+    border-left:4px solid var(--amber);background:var(--amber-soft);
+    padding:10px 14px;border-radius:0 10px 10px 0;margin:10px 0;font-size:14.5px;
+  }
+  .note.green{border-color:var(--green);background:var(--green-soft);}
+  .note.purple{border-color:var(--purple);background:var(--purple-soft);}
+  .note.teal{border-color:var(--teal);background:var(--teal-soft);}
+  .note b{color:inherit;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+
+  .subcard{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:12px 15px;}
+  .subcard h4{margin:0 0 6px;font-size:15px;}
+  .subcard.s{border-left:4px solid var(--purple);}
+  .subcard.aq{border-left:4px solid var(--teal);}
+
+  .formula{font-family:"Cambria Math","Times New Roman",serif;font-size:16px;}
+  .chain{font-family:"Cambria Math","Times New Roman",serif;font-size:16px;background:#fff;border:1px dashed #cdd8e6;border-radius:9px;padding:9px 13px;display:inline-block;}
+
+  footer.foot{text-align:center;color:var(--sub);font-size:13px;margin-top:26px;}
+
+  @media print{
+    body{background:#fff;font-size:14px;}
+    .tabs,.hero-actions{display:none;}
+    .panel{display:block !important;page-break-inside:avoid;}
+    .panel::before{content:attr(data-title);display:block;font-size:19px;font-weight:700;color:var(--brand);margin:18px 0 8px;border-bottom:2px solid var(--brand);padding-bottom:4px;}
+    header.hero{background:#2f6fed !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .card{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <h1>化工工艺流程 · 笔记整理</h1>
+    <p>依据手写笔记（4 张图片）整理 · 供手动抄写用 · 重点已用颜色标注</p>
+    <div class="hero-actions">
+      <button class="btn" onclick="window.print()">🖨 打印 / 另存为 PDF</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="t1">① 工艺流程 · 总览</div>
+    <div class="tab" data-tab="t2">② 反应条件控制</div>
+    <div class="tab" data-tab="t3">③ 产物分离提纯</div>
+    <div class="tab" data-tab="t4">④ 操作与工艺评价</div>
+  </div>
+
+  <!-- ============ 第 1 页 ============ -->
+  <section class="panel active" id="t1" data-title="① 工艺流程 · 总览">
+
+    <div class="card">
+      <h2><span class="dot"></span>一、总流程主干</h2>
+      <div class="note">
+        <b>速记：</b>① 溶解 · 酸浸 · 煅烧　→　② 除杂（调 pH / 试剂）
+      </div>
+      <div class="flow">
+        <div class="node">原料</div>
+        <div class="arrow"><span class="label">(1) 预处理</span><span class="tri">▶</span></div>
+        <div class="node alt">中间产物（较纯）</div>
+        <div class="arrow"><span class="label">(2) 核心反应</span><span class="tri">▶</span></div>
+        <div class="node">含杂质的混合物</div>
+        <div class="arrow"><span class="label">(3) 分离提纯</span><span class="tri">▶</span></div>
+        <div class="node end">纯品</div>
+      </div>
+      <p class="muted" style="margin:10px 0 0;">
+        旁注：除杂过程中会分离出 <b>滤渣 / 混合物</b>，需判断其成分与走向。
+      </p>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>二、分析两步法</h2>
+      <ul class="num">
+        <li>列出 <span class="hl">杂质</span>，分析各 <b>元素走向</b>（进到哪里）。</li>
+        <li>找 <span class="hl">元素价态</span>：（<b>产品</b>元素价态改变为「核心反应」）。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>三、预处理</h2>
+
+      <h3 class="sec"><span class="badge">(1)</span>表面处理（NaOH、Na<sub>2</sub>CO<sub>3</sub>）</h3>
+      <ul class="clean">
+        <li>① 去除表面油污 → <b>碱煮水洗</b></li>
+        <li>② 去除表面氧化膜 → <b>打磨</b>、化学法</li>
+      </ul>
+
+      <h3 class="sec"><span class="badge">(2)</span>研磨、粉碎、喷洒酒精</h3>
+      <p style="margin:4px 0;">作用：增大反应接触面积，提高反应速率，提高原料的 <span class="hl">浸出率</span>。</p>
+
+      <h3 class="sec"><span class="badge">(3)</span>浸取</h3>
+      <ul class="clean">
+        <li>① <b>水浸</b>：分离水溶性和非水溶性物质</li>
+        <li>② <b>醇浸</b>：提取有机物</li>
+        <li>★ ③ <b>酸浸</b>：可溶解金属、金属氧化物、盐等</li>
+        <li>④ <b>碱浸</b>：除油、溶解铝及其化合物等</li>
+      </ul>
+      <div class="grid2" style="margin-top:8px;">
+        <div class="subcard">
+          <h4>浸出率 <span class="muted">（溶解进入溶液的比率）</span></h4>
+          <ul class="clean">
+            <li>增大浸取液浓度</li>
+            <li>升高温度</li>
+            <li>固体原料研磨成细颗粒，增大接触面积</li>
+            <li>充分搅拌</li>
+            <li>延长浸取反应时间</li>
+          </ul>
+        </div>
+        <div class="subcard">
+          <h4>浸出速率 <span class="muted">（浸取反应的快慢）</span></h4>
+          <ul class="clean">
+            <li>增大浸取液浓度</li>
+            <li>升高温度</li>
+            <li>研磨成细颗粒，增大接触面积</li>
+            <li>充分搅拌</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="sec"><span class="badge">(4)</span>灼烧</h3>
+      <ul class="clean">
+        <li>① <b>结构转化</b> → 使其能溶于酸、碱<br>
+            <span class="muted">例：煅烧高岭土，使 Al<sub>2</sub>O<sub>3</sub> 能溶于酸。</span></li>
+        <li>② <b>除杂</b> → 除去可燃性杂质<br>
+            <span class="muted">例：海带提碘，灼烧使有机物分解。</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 第 2 页 ============ -->
+  <section class="panel" id="t2" data-title="② 反应条件控制">
+
+    <div class="card">
+      <h2><span class="dot"></span>(1) 温度</h2>
+      <ul class="clean">
+        <li><b>① 增速率</b> → 升温，加快化学反应速率</li>
+        <li><b>② 防分解</b> → 防止…受热分解
+            <span class="muted">（H<sub>2</sub>O<sub>2</sub>、NH<sub>3</sub>·H<sub>2</sub>O、NH<sub>4</sub><sup>+</sup>、HCO<sub>3</sub><sup>−</sup>、HNO<sub>3</sub>）</span></li>
+        <li><b>③ 防挥发</b> → 防止…挥发
+            <span class="muted">（盐酸、HNO<sub>3</sub>、氨水、有机溶剂）</span></li>
+        <li><b>④ 控水解</b> → 抑制…水解 或 促进…水解，利于…
+            <span class="muted">（Mg<sup>2+</sup>、Fe<sup>3+</sup>）</span></li>
+        <li><b>⑤ 控平衡</b> → 升温，平衡…移动，转化率…
+            <span class="muted">（ΔH&lt;0 / ΔH&gt;0）</span></li>
+        <li><b>⑥ 控溶解</b> → 煮沸可除去溶解… 或 增大…溶解度
+            <span class="muted">（水中溶解 O<sub>2</sub> / CO<sub>2</sub> / 其他）</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>(2) pH</h2>
+      <div class="note purple">
+        <b>判据：</b>① 杂质离子 <b>完全沉淀</b>；② 产品（其他）离子 <b>未开始沉淀</b>。
+      </div>
+
+      <h3 class="sec purple"><span class="badge">表</span>沉淀完全 pH 参考</h3>
+      <table>
+        <tr><th>物质</th><th>开始沉淀 pH</th><th>沉淀完全 pH</th></tr>
+        <tr><td>Fe(OH)<sub>3</sub></td><td>2.7</td><td>3.7</td></tr>
+        <tr><td>Fe(OH)<sub>2</sub></td><td>6.5</td><td>9.7</td></tr>
+        <tr><td>Cu(OH)<sub>2</sub></td><td>4.7</td><td>6.7</td></tr>
+      </table>
+
+      <div class="note">
+        <b>例：除去 Cu<sup>2+</sup> 中的 Fe<sup>2+</sup></b><br>
+        <span class="chain">Fe<sup>2+</sup> &nbsp;──氧化剂(H<sub>2</sub>O<sub>2</sub>)──▶&nbsp; Fe<sup>3+</sup> &nbsp;──调 pH──▶&nbsp; 3.7 ≤ pH &lt; 4.7</span>
+        <span class="muted" style="display:block;margin-top:6px;">（先氧化再调 pH，使 Fe<sup>3+</sup> 完全沉淀而 Cu<sup>2+</sup> 不沉淀）</span>
+      </div>
+
+      <h3 class="sec purple"><span class="badge">选</span>调 pH 试剂选择（通常调高 pH）</h3>
+      <div class="grid2">
+        <div class="subcard">
+          <h4>产品来源 = 滤液（结晶）</h4>
+          <p style="margin:2px 0;"><b>不引入杂质</b><br>
+            <span class="muted">例：消耗 H<sup>+</sup>，产品为 Cu<sup>2+</sup>，可用 CuO、Cu(OH)<sub>2</sub>、CuCO<sub>3</sub>。</span></p>
+        </div>
+        <div class="subcard">
+          <h4>产品来源 = 滤渣</h4>
+          <p style="margin:2px 0;"><b>可引入杂质</b>（后续将产品过滤，无影响）。</p>
+        </div>
+      </div>
+
+      <h3 class="sec purple"><span class="badge">控</span>控 pH 值的作用</h3>
+      <ul class="clean">
+        <li>① 使某些离子转为沉淀（氢氧化物）</li>
+        <li>② 抑制（促进）某些离子水解</li>
+      </ul>
+      <div class="note">
+        <b>过量目的：</b>① 充分溶解（另外…）　② 抑制…水解
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>(3) 保护（防氧化）</h2>
+      <ul class="clean">
+        <li>① 产品本身易被氧化</li>
+        <li>② 添加的试剂具有还原性
+            <span class="muted">（SO<sub>2</sub>、SO<sub>3</sub><sup>2−</sup>、S<sup>2−</sup>、Fe、Fe<sup>2+</sup>、酸、C）</span></li>
+        <li>③ 充惰性气体</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 第 3 页 ============ -->
+  <section class="panel" id="t3" data-title="③ 产物分离提纯">
+
+    <div class="card">
+      <h2><span class="dot"></span>(1) 结晶</h2>
+      <div class="grid2">
+        <div class="subcard" style="border-left:4px solid var(--brand);">
+          <h4>混合液 → 蒸发浓缩，冷却结晶，过滤，洗涤，干燥</h4>
+          <p class="muted" style="margin:2px 0;">适用：<b>（出现晶膜时）</b></p>
+        </div>
+        <div class="subcard" style="border-left:4px solid var(--green);">
+          <h4>混合液 → 蒸发结晶，趁热过滤，洗涤，干燥</h4>
+          <p class="muted" style="margin:2px 0;">适用：<b>（有较多晶体时）</b></p>
+        </div>
+      </div>
+      <div class="subcard" style="border-left:4px solid var(--purple);margin-top:12px;">
+        <h4>粗品(s) —溶解→ —结晶→ 纯品(s)</h4>
+        <p class="muted" style="margin:2px 0;">即 <b>重结晶</b>，用于进一步提纯。</p>
+      </div>
+
+      <h3 class="sec"><span class="badge">曲线</span>溶解度曲线（原图左侧曲线示意）</h3>
+      <div style="display:grid;grid-template-columns:240px 1fr;gap:14px;align-items:center;margin:8px 0;">
+        <svg viewBox="0 0 190 92" style="width:100%;height:auto;display:block;">
+          <line x1="26" y1="80" x2="182" y2="80" stroke="#5f6b7a" stroke-width="1.4"/>
+          <line x1="26" y1="80" x2="26" y2="10" stroke="#5f6b7a" stroke-width="1.4"/>
+          <polygon points="182,80 173,76 173,84" fill="#5f6b7a"/>
+          <polygon points="26,10 22,19 30,19" fill="#5f6b7a"/>
+          <text x="184" y="90" font-size="13" fill="#5f6b7a">T</text>
+          <text x="4" y="10" font-size="10" fill="#5f6b7a">溶解度</text>
+          <line x1="32" y1="76" x2="168" y2="16" stroke="#d1453f" stroke-width="2.2"/>
+          <text x="124" y="30" font-size="13" fill="#d1453f" font-weight="bold">KNO₃</text>
+          <line x1="32" y1="72" x2="168" y2="58" stroke="#2f6fed" stroke-width="2.2"/>
+          <text x="130" y="74" font-size="13" fill="#2f6fed" font-weight="bold">NaCl</text>
+        </svg>
+        <ul class="clean">
+          <li>① 溶解度随温度变化较大，如 <b>KNO<sub>3</sub></b> →（冷却结晶）</li>
+          <li>② 带结晶水，如 <b>CuSO<sub>4</sub>·5H<sub>2</sub>O</b></li>
+          <li>③ 受热易分解，如 <b>NH<sub>4</sub>Cl</b></li>
+          <li>④ 易水解，如…</li>
+        </ul>
+      </div>
+
+      <h3 class="sec green"><span class="badge">醇洗</span>用乙醇洗涤的优点</h3>
+      <ul class="clean">
+        <li>① 乙醇易挥发，便于干燥</li>
+        <li>② 减少产品溶解损失 或 防止产品结晶时水解</li>
+        <li>③ 能除去表面的水溶性杂质</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>(2) 过滤</h2>
+      <ul class="clean">
+        <li><b>常温过滤</b>：玻璃仪器（玻璃棒、烧杯、漏斗）</li>
+        <li><b>趁热过滤</b>：装置为 <b>金属保温漏斗</b></li>
+        <li><b>加速过滤</b>：抽滤（减压过滤）；装置：<b>抽滤瓶、布氏漏斗</b></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>(3) 洗涤</h2>
+      <div class="note teal">
+        <b>目的：</b>除去晶体表面的可溶性杂质，得到更纯净的沉淀物。
+      </div>
+      <div class="grid2">
+        <div class="subcard s">
+          <h4>产品在滤渣中</h4>
+          <p style="margin:2px 0;">洗涤 → 提高产品 <b>纯度</b></p>
+        </div>
+        <div class="subcard aq">
+          <h4>产品在滤液中</h4>
+          <p style="margin:2px 0;">洗涤 → 提高产品 <b>产率</b></p>
+        </div>
+      </div>
+
+      <h3 class="sec teal"><span class="badge">1</span>单剂洗涤剂选择</h3>
+      <ul class="clean">
+        <li>① <b>蒸馏水</b> → 除去 X 表面的杂质，提高产品纯度</li>
+        <li>② <b>冰水</b> → 除去…（同①），降低 X 溶解度，减少溶解损耗，提高产率</li>
+        <li>③ <b>饱和溶液</b> → 除去…，减少溶解损耗，提高产率</li>
+        <li>④ <b>有机溶剂</b> → 除去…，降低 X 的溶解度，减少…，易于干燥</li>
+      </ul>
+
+      <h3 class="sec teal"><span class="badge">2</span>双剂洗涤（先冰水，后酒精）</h3>
+      <ul class="clean">
+        <li>① 第一步：正常洗涤</li>
+        <li>② 第二步目的：除去晶体表面水分</li>
+      </ul>
+      <p class="muted" style="margin:4px 0;">注：使产品易干燥；注：防止…（结合题中信息作答）。</p>
+    </div>
+  </section>
+
+  <!-- ============ 第 4 页 ============ -->
+  <section class="panel" id="t4" data-title="④ 操作与工艺评价">
+
+    <div class="card">
+      <h2><span class="dot"></span>一、洗涤操作</h2>
+      <ul class="clean">
+        <li>沿玻璃棒向漏斗中注入蒸馏水，至 <b>完全浸没沉淀</b>，待溶液自然流下，重复操作 <b>2~3 次</b>。</li>
+        <li><b>检验沉淀是否洗净</b> → <b>见前</b><span class="muted">（补充：取最后一次洗涤液检验特征离子）</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>二、碱溶</h2>
+      <p style="margin:2px 0;"><b>原料：</b><span class="formula">SiO<sub>2</sub>、Al<sub>2</sub>O<sub>3</sub>、Fe<sub>x</sub>O<sub>y</sub>、MgO、CuO、BaO、CaO、PbO、K<sub>2</sub>O</span></p>
+      <div class="flow" style="justify-content:center;">
+        <div class="node">原料混合物</div>
+        <div class="arrow"><span class="label">碱溶</span><span class="tri">▶</span></div>
+        <div class="node alt" style="border-color:var(--purple);color:var(--purple);">分离</div>
+      </div>
+      <div class="grid2">
+        <div class="subcard s">
+          <h4>不溶物 (s)</h4>
+          <p class="formula" style="margin:2px 0;">Fe<sub>x</sub>O<sub>y</sub>、BaSiO<sub>3</sub>、MgO、CaSiO<sub>3</sub>、CuO</p>
+        </div>
+        <div class="subcard aq">
+          <h4>溶液 (aq)</h4>
+          <p class="formula" style="margin:2px 0;">[Al(OH)<sub>4</sub>]<sup>−</sup>、SiO<sub>3</sub><sup>2−</sup>、K<sup>+</sup></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>三、Na<sub>2</sub>CO<sub>3</sub>（高温）</h2>
+      <div class="flow" style="justify-content:center;">
+        <div class="node">SiO<sub>2</sub> …… K<sub>2</sub>O</div>
+        <div class="arrow"><span class="label">高温 + Na<sub>2</sub>CO<sub>3</sub></span><span class="tri">▶</span></div>
+        <div class="node alt" style="border-color:var(--purple);color:var(--purple);">① Na<sub>2</sub>CO<sub>3</sub>　② 水浸</div>
+      </div>
+      <div class="grid2">
+        <div class="subcard s">
+          <h4>不溶物 (s)</h4>
+          <p class="formula" style="margin:2px 0;">Fe<sub>x</sub>O<sub>y</sub>、BaSiO<sub>3</sub>、MgO、CaSiO<sub>3</sub>、CuO</p>
+        </div>
+        <div class="subcard aq">
+          <h4>溶液 (aq)</h4>
+          <p class="formula" style="margin:2px 0;">[Al(OH)<sub>4</sub>]<sup>−</sup>、SiO<sub>3</sub><sup>2−</sup>、K<sup>+</sup></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>四、用平衡原理解释（答题模板）</h2>
+      <ul class="num">
+        <li>…存在…平衡（<b>写出方程式</b>）</li>
+        <li>…（条件）…（变化）</li>
+        <li>使平衡向…（方向）移动</li>
+        <li>…（<b>结论</b>）</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>五、工艺评价</h2>
+      <div class="grid2">
+        <div class="subcard" style="border-left:4px solid var(--green);">
+          <h4 style="color:var(--green);">√ 优点</h4>
+          <ul class="clean">
+            <li>① 原料成本低</li>
+            <li>② 污染排放少
+              <span class="muted">（Cl<sub>2</sub>、SO<sub>x</sub>、NO<sub>x</sub>、废液〔酸碱、重金属盐〕、废渣）</span></li>
+          </ul>
+        </div>
+        <div class="subcard" style="border-left:4px solid var(--red);">
+          <h4 style="color:var(--red);">✗ 不足</h4>
+          <ul class="clean">
+            <li>① 引入杂质</li>
+            <li>② 氧化性不够</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note green">
+        <b>(3) 循环利用</b> → 降低成本、减少污染。
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">化工工艺流程笔记 · 整理自手写图片（共 4 页）</footer>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.tab).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }));
+</script>
+</body>
+</html>
